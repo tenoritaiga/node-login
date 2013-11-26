@@ -1,5 +1,4 @@
-
-var crypto 		= require('crypto');
+var scrypt      = require('scrypt');
 var MongoDB 	= require('mongodb').Db;
 var Server 		= require('mongodb').Server;
 var moment 		= require('moment');
@@ -62,11 +61,14 @@ exports.addNewAccount = function(newData, callback)
 				if (o){
 					callback('email-taken');
 				}	else{
+                    console.log("Calling saltAndHash...")
 					saltAndHash(newData.pass, function(hash){
 						newData.pass = hash;
 					// append date stamp when record was created //
 						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
+                        console.log("accounts.insert() is being called...");
 						accounts.insert(newData, {safe: true}, callback);
+                        console.log("accounts.insert() got called")
 					});
 				}
 			});
@@ -146,32 +148,35 @@ exports.delAllRecords = function(callback)
 
 /* private encryption & validation methods */
 
-var generateSalt = function()
-{
-	var set = '0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ';
-	var salt = '';
-	for (var i = 0; i < 10; i++) {
-		var p = Math.floor(Math.random() * set.length);
-		salt += set[p];
-	}
-	return salt;
+/* Upgraded with super scrypt powers */
+var saltAndHash = function(pass, callback) {
+
+    //console.log("Launching scrypt");
+
+    scrypt.passwordHash(pass,0.1,function(err, pwdhash) {
+        if(!err) {
+            console.log(pwdhash);
+            callback(pwdhash);
+        }
+        else {
+            console.log("Scrypt failed...")
+        }
+    });
 }
 
-var md5 = function(str) {
-	return crypto.createHash('md5').update(str).digest('hex');
-}
-
-var saltAndHash = function(pass, callback)
+var validatePassword = function (plainPass, hashedPass, callback)
 {
-	var salt = generateSalt();
-	callback(salt + md5(pass + salt));
-}
+    scrypt.verifyHash(hashedPass,plainPass,function(err, result) {
+        if(!err) {
+            //Password matched
+            callback(null,result);
+        }
+        else {
+            //Password did not match
+            callback(null,result);
+        }
+    });
 
-var validatePassword = function(plainPass, hashedPass, callback)
-{
-	var salt = hashedPass.substr(0, 10);
-	var validHash = salt + md5(plainPass + salt);
-	callback(null, hashedPass === validHash);
 }
 
 /* auxiliary methods */
