@@ -7,7 +7,7 @@
 * Ability to Update / Delete Account
 * Session Tracking for Logged-In Users
 * Local Cookie Storage for Returning Users
-* Blowfish-based Scheme Password Encryption
+* ~~Blowfish-based Scheme Password Encryption~~ Way more awesome [scrypt](http://github.com/barrysteyn/node-scrypt)-based password encryption
 
 ***
 

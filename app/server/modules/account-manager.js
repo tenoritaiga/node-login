@@ -61,14 +61,11 @@ exports.addNewAccount = function(newData, callback)
 				if (o){
 					callback('email-taken');
 				}	else{
-                    console.log("Calling saltAndHash...")
 					saltAndHash(newData.pass, function(hash){
 						newData.pass = hash;
 					// append date stamp when record was created //
 						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-                        console.log("accounts.insert() is being called...");
 						accounts.insert(newData, {safe: true}, callback);
-                        console.log("accounts.insert() got called")
 					});
 				}
 			});
@@ -155,7 +152,6 @@ var saltAndHash = function(pass, callback) {
 
     scrypt.passwordHash(pass,0.1,function(err, pwdhash) {
         if(!err) {
-            console.log(pwdhash);
             callback(pwdhash);
         }
         else {
