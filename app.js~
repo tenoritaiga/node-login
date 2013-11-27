@@ -31,7 +31,7 @@ app.configure('development', function(){
 
 require('./app/server/router')(app);
 
-var io = require('socket.io').listen(app.listen(ioport));
+var io = require('socket.io').listen(app.listen('ioport'));
 
 io.sockets.on('connection', function (socket) {
     //socket.emit('message', { message: 'welcome to the chat' });
