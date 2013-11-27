@@ -6,11 +6,6 @@ html
         link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
         link(rel='stylesheet', type='text/css', href='../css/chat.css')
         link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
-        script(src='/vendor/jquery.min.js')
-        script(src='/vendor/jquery.form.js')
-        script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.js')
-        script(src='/js/views/home.js')
-        script(src='/socket.io/socket.io.js')
     body
         section#container.container
             .content.row
@@ -70,11 +65,3 @@ html
             input#newChatroomName(type='text', name='newChatroomName', maxlength='15')
             button#newChatroomSubmit Create
         link(href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css', rel='stylesheet')
-        block scripts
-    script(src='/vendor/bootstrap-modal.js')
-    script(src='/vendor/bootstrap-transition.js')
-    script(src='/js/views/home.js')
-    script(src='/js/controllers/homeController.js')
-    script(src='/js/form-validators/accountValidator.js')
-    script(src='/js/views/tabs.js')
-    script(src='/js/views/openpgp.min.js')
