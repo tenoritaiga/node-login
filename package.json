@@ -21,7 +21,8 @@
 		"mongodb": "1.2.7",
 		"moment" : "1.7.2",
 		"emailjs": "0.3.3",
-        "socket.io": "latest"
+        "socket.io": "latest",
+        "scrypt": "latest"
 	},
 	"engines": {
 		"node": "0.8.14",
