@@ -28,7 +28,7 @@ function AccountValidator(){
 
     this.validatePasswordMatch = function(pass1, pass2)
     {
-//        return pass1 === pass2;
+        return pass1 === pass2;
     }
 	
 	this.validateEmail = function(e)
