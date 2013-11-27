@@ -40,6 +40,7 @@ var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket) {
     //socket.emit('message', { message: 'welcome to the chat' });
+    console.debug("socket.io got a connection");
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
