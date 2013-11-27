@@ -8,6 +8,7 @@
 var express = require('express');
 var http = require('http');
 var app = express();
+var ioport = 3700;
 
 app.configure(function(){
 	app.set('port', 8080);
@@ -29,6 +30,15 @@ app.configure('development', function(){
 });
 
 require('./app/server/router')(app);
+
+var io = require('socket.io').listen(app.listen('ioport'));
+
+io.sockets.on('connection', function (socket) {
+    //socket.emit('message', { message: 'welcome to the chat' });
+    socket.on('send', function (data) {
+        io.sockets.emit('message', data);
+    });
+});
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));

@@ -22,10 +22,10 @@ $(document).ready(function(){
 	$('#name-tf').focus();
 	
 // customize the account signup form //
-	
+
 	$('#account-form h1').text('Signup');
-	$('#account-form #sub1').text('Please tell us a little about yourself');
-	$('#account-form #sub2').text('Choose your username & password');
+	$('#account-form #sub1').text('Your real name is not required.');
+	$('#account-form #sub2').text('Choose a very strong and not easy-to-guess password.');
 	$('#account-form-btn1').html('Cancel');
 	$('#account-form-btn2').html('Submit');
 	$('#account-form-btn2').addClass('btn-primary');

@@ -1,0 +1,79 @@
+#chatbox{
+   height:450px;
+   margin-bottom:10px;
+   background-color: #ffffff;
+   overflow:scroll;
+   
+}
+
+#rightSide{
+   margin-left:10px;
+}
+
+#chatList{
+   height:450px;
+   margin-bottom:10px;
+}
+
+#top{
+   margin-top:37px;
+}
+
+#tabs > li{
+   border-width:1px;
+   border-style:solid;
+   border-radius: 3px;
+   background-color: #ebebe4;
+}
+
+a:link, a:link, a:visited, a:active
+{
+	color:#329E6B;
+}
+
+#logo{
+   height:80px;
+   margin-bottom:10px;
+}
+
+#container{
+   border-width:4px;
+   border-style:solid;
+   margin-top:15px;
+   padding-top:20px;
+   padding-left:30px;
+   padding-right:30px;
+   padding-bottom:20px;
+   background-color:#329E6B;
+}
+
+#settings{
+   margin-left:151px;
+
+}
+
+#friends{
+   padding-left:65px; 
+   padding-right:65px; 
+}
+
+.overlay
+{
+    background-color: #000;
+    opacity: .7;
+    filter: alpha(opacity=70);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 10;
+
+}
+
+.overlay h1
+{
+    font-size:2.5em;
+    color:white;
+    opacity:1;
+    text-align:center;
+    position: absolute;
+    top: 50%; left: 0; bottom: 0; right: 0;
+}
