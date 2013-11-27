@@ -1,5 +1,3 @@
-
-var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
 
@@ -48,7 +46,6 @@ module.exports = function(app) {
 	    }   else{
 			res.render('home', {
 				title : 'Control Panel',
-				countries : CT,
 				udata : req.session.user
 			});
 	    }
@@ -85,7 +82,7 @@ module.exports = function(app) {
 // creating new accounts //
 	
 	app.get('/signup', function(req, res) {
-		res.render('signup', {  title: 'Signup', countries : CT });
+		res.render('signup', {  title: 'Signup' });
 	});
 	
 	app.post('/signup', function(req, res){
