@@ -28,11 +28,7 @@ function AccountValidator(){
 
     this.validatePasswordMatch = function(pass1, pass2)
     {
-//        console.log("Pass1: " + pass1);
-//        console.log("Pass2: " + pass2);
-//        var isEqual = (pass1 === pass2);
-//        console.log("Validation returned: " + isEqual)
-        return isEqual;
+//        return pass1 === pass2;
     }
 	
 	this.validateEmail = function(e)
