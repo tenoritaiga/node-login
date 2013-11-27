@@ -8,7 +8,6 @@
 var express = require('express');
 var http = require('http');
 var app = express();
-var ioport = 3700;
 
 app.configure(function(){
 	app.set('port', 8080);
