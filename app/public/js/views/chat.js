@@ -9,7 +9,7 @@ window.onload = function() {
     var name = "Tony";
     //placeOverlay();
     //generateKeypair();
-    var pubkey = generateKeypair(name,'supersecretpassphrase');
+    //var pubkey = generateKeypair(name,'supersecretpassphrase');
     //removeOverlay();
 
     socket.on('message', function (data) {
