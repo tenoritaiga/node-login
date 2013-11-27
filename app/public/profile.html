@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Profile PGP chat</title>
+      <link rel="stylesheet" type="text/css" href="css/profile.css">
+      <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+      <link rel='stylesheet' href='spectrum/spectrum.css' />
+   </head>
+   <body>
+
+
+      <section class="container" id="container">
+         <form id="form" method="post" action="validateForm.php">
+            <div class="row">
+               <div class="col-md-6 col-md-offset-3">
+                  <h1 id="title">Profile</h1>
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-3 col-md-offset-1">
+                  <p>Username:</p>
+               </div>
+               <div class="col-md-8">
+                  <input id="username" type="text" value="Bling" class="field left form-control" readonly maxlength="15">
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-3 col-md-offset-1">
+                  <p>Email:</p>
+               </div>
+               <div class="col-md-8">
+                  <input id="email" type="text" value="bling@stevens.edu" class="field left form-control" readonly maxlength="30">
+               </div>
+            </div>
+
+            <div class="row">
+               <div class="col-md-3 col-md-offset-1">
+                  <label for="hometown" class="">Hometown:</label>
+               </div>
+               <div class="col-md-8">
+                  <input id="hometown" type="text" value="Rochester" class="field form-control" readonly maxlength="30">
+               </div>
+            </div>
+            
+            <div class="row">
+               <div class="col-md-3 col-md-offset-1">
+                  <label  class="" for="backgroundInput">Background:</label>
+               </div>
+               <div  id="hideBackground" class="col-md-8" hidden>
+                  <input  class="" type='text' id="backgroundInput"/>
+               </div>
+            </div>
+
+            <div class="row">
+               <button class="btn col-md-2 col-md-offset-1 btn-default" id="edit">Edit</button>
+               <button class="btn col-md-3 btn-default" id="save">Submit</button>
+            </div>
+         </form>
+      </section>
+
+
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+   <script type="text/javascript" src="js/openpgp.min.js"></script>
+   <script src='spectrum/spectrum.js'></script>
+   <script type="text/javascript" src="js/profile.js"></script>
+   </body>
+</html>
+
