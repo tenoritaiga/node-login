@@ -1,5 +1,4 @@
 extends layout
-
 block content
     div.navbar.navbar-fixed-top
         div.navbar-inner
@@ -9,8 +8,6 @@ block content
                 button#btn-logout.btn.btn-primary
                     i.icon-lock.icon-white
                     | Sign Out
-
-    include create-chat
+    include chat
     include modals/alert
     include modals/confirm
-

@@ -20,12 +20,10 @@ var messages = db.collection('messages');
 
 
 var messageWriter = function (data, req, res) {
-    console.log("THREAD STORAGE got message from server: " + data);
+    //console.log("THREAD STORAGE got message from server: " + data);
     if (data.message) {
 
         console.log("OK, WRITING TO DB");
-
-
 
         messages.insert({
             "username" : data.username,

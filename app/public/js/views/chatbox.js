@@ -15,13 +15,13 @@ $(document).ready
 			$("#inputMessage").val("");
 		}
 
-		var sendToDatabase = function(user, message)
-		{
-		}
-
-		var encryptMessage = function(message)
-		{
-		}
+//		var sendToDatabase = function(user, message)
+//		{
+//		}
+//
+//		var encryptMessage = function(message)
+//		{
+//		}
 
 		var getTimestamp = function()
 		{

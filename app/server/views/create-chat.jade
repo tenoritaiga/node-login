@@ -1,0 +1,30 @@
+!!! 5
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        title Create a New Chat
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(name='description', content='')
+        meta(name='author', content='')
+        link(href='/vendor/bootstrap.min.css', rel='stylesheet')
+        link(rel='stylesheet', type='text/css', href='/css/create-chat.css')
+        link(href='/css/bootstrap-responsive.css', rel='stylesheet')
+    body
+        .container
+            form( method="post")#createchat-form.form-signin
+                h2.form-signin-heading You aren't in any chats. Start a new one?
+                input.input-block-level(type='text', placeholder='Chat Name')
+
+                button#button-create.btn.btn-large.btn-primary(type='submit') Create
+
+    block scripts
+        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+        script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.js')
+        script(src='/vendor/jquery.min.js')
+        script(src='/vendor/jquery.form.js')
+        script(type='text/javascript', src='/vendor/bootstrap/js/bootstrap.min.js')
+        script(src='/js/views/home.js')
+        script(src='/vendor/bootstrap-modal.js')
+        script(src='/vendor/bootstrap-transition.js')
+        script(src='/js/controllers/homeController.js')
+        script(src='/js/form-validators/accountValidator.js')

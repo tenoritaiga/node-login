@@ -1,5 +1,6 @@
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
+var CM = require('./modules/chatroom-manager');
 
 module.exports = function(app) {
 
@@ -87,6 +88,24 @@ module.exports = function(app) {
 
     app.get('/test', function(req, res) {
         res.render('test', { title: 'Test' });
+    });
+
+    app.get('/create-chat', function(req, res) {
+        res.render('create-chat', { title: 'Create a new chat' });
+    });
+
+    app.post('/create-chat', function(req, res) {
+
+        CM.addNewChat({
+            chatname 	: req.param('chatname')
+        }, function(e){
+            if (e){
+                res.send(e, 400);
+            }	else{
+                res.send('ok', 200);
+            }
+        });
+
     });
 
     app.get('/account', function(req, res) {
