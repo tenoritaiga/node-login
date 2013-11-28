@@ -26,9 +26,7 @@ var messageWriter = function (data, req, res) {
 
         messages.insert(data.message, function(e){
             if (e){
-                res.send(e, 400);
-            }	else{
-                res.send('ok', 200);
+                console.log("Something bad happened while trying to write to db.");
             }
         });
 
