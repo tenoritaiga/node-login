@@ -88,6 +88,10 @@ module.exports = function(app) {
     app.get('/test', function(req, res) {
         res.render('test', { title: 'Test' });
     });
+
+    app.get('/account', function(req, res) {
+        res.render('account', { title: 'Account' });
+    });
 	
 	app.post('/signup', function(req, res){
 		AM.addNewAccount({
