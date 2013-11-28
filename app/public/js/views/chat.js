@@ -8,7 +8,7 @@ window.onload = function() {
 
     //placeOverlay();
     //generateKeypair();
-    //var pubkey = generateKeypair(name,'supersecretpassphrase');
+    var pubkey = generateKeypair(name,'supersecretpassphrase');
     //removeOverlay();
 
     function getCookie(c_name)
@@ -44,7 +44,7 @@ window.onload = function() {
         if(data.message) {
 
             //console.log(data.message);
-            //data.message = openpgp.write_encrypted_message(pubkey,data.message);
+            data.message = openpgp.write_encrypted_message(pubkey,data.message);
             messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {

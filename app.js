@@ -37,11 +37,13 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 })
 
 var io = require('socket.io').listen(server);
+var TS = require('./app/server/modules/thread-storage');
 
 io.sockets.on('connection', function (socket) {
     //socket.emit('message', { message: 'welcome to the chat' });
     console.log("socket.io got a connection");
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
+        TS.messageWriter(data);
     });
 });
