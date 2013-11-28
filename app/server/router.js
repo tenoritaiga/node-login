@@ -84,6 +84,10 @@ module.exports = function(app) {
 	app.get('/signup', function(req, res) {
 		res.render('signup', {  title: 'Signup' });
 	});
+
+    app.get('/test', function(req, res) {
+        res.render('test', { title: 'Test' });
+    });
 	
 	app.post('/signup', function(req, res){
 		AM.addNewAccount({
