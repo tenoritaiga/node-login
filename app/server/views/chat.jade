@@ -65,3 +65,16 @@ html
             label(for='newChatroomName') Name
             input#newChatroomName(type='text', name='newChatroomName', maxlength='15')
             button#newChatroomSubmit Create
+block scripts
+    script(src='/vendor/jquery.min.js')
+    script(src='/vendor/jquery.form.js')
+    script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.js')
+    script(src='/js/views/home.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='/vendor/bootstrap-modal.js')
+    script(src='/vendor/bootstrap-transition.js')
+    script(src='/js/controllers/homeController.js')
+    script(src='/js/form-validators/accountValidator.js')
+    script(src='/js/views/tabs.js')
+    script(src='/js/views/chat.js')
+    script(src='/js/views/openpgp.min.js')
