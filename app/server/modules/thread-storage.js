@@ -18,13 +18,19 @@ db.open(function(e, d){
 
 var messages = db.collection('messages');
 
+
 var messageWriter = function (data, req, res) {
     console.log("THREAD STORAGE got message from server: " + data);
     if (data.message) {
 
         console.log("OK, WRITING TO DB");
 
-        messages.insert(data.message, function(e){
+
+
+        messages.insert({
+            "username" : data.username,
+            "message" : data.message
+        }, function(e){
             if (e){
                 console.log("Something bad happened while trying to write to db.");
             }
