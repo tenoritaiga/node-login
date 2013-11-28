@@ -44,7 +44,7 @@ window.onload = function() {
         if(data.message) {
 
             //console.log(data.message);
-            data.message = openpgp.write_encrypted_message(pubkey,data.message);
+            //data.message = openpgp.write_encrypted_message(pubkey,data.message);
             messages.push(data);
             var html = '';
             for(var i=0; i<messages.length; i++) {
@@ -133,7 +133,8 @@ window.onload = function() {
             alert("Please type your name!");
         } else {
             var text = field.value;
-            socket.emit('send', { message: text, username: name, time: timestamp});
+            var encrypted = openpgp.write_encrypted_message(pubkey,text);
+            socket.emit('send', { message: encrypted, username: name, time: timestamp});
             field.value = "";
         }
     };

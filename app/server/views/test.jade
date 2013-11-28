@@ -5,8 +5,17 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(href='/vendor/bootstrap.min.css', rel='stylesheet')
     body
-        .jumbotron
-            h1 Hello, world!
-            p ...
-            p
-                a.btn.btn-primary.btn-lg(role='button') Learn more
+
+        script(type='text/javascript', src='js/views/sjcl.js')
+    script(type='text/javascript')
+        var p, rp = {};
+        p = { mode: "ccm", ks: 256 };
+        /*** encrypt */
+        var json_sjcl = sjcl.encrypt("Secret Passphrase", "plaintext", p, rp);
+        var jsObject = eval("(" + json_sjcl + ")");
+        var ciphertext = jsObject.ct;
+
+        console.log(ciphertext);
+        /*** decrypt */
+        var plaintext = sjcl.decrypt("Secret Passphrase", json_sjcl, {}, rp);
+                console.log(plaintext);
