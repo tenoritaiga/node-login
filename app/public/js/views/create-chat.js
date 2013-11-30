@@ -1,4 +1,4 @@
-var cc = new CreateChatController();
+var cc = new ChatroomController();
 
 // form //
 
@@ -10,6 +10,6 @@ $('#createchat-form').ajaxForm({
         if (status == 'success') window.location.href = '/home';
     },
     error : function(e){
-        console.log("createChatController failed.")
+        console.log("ChatroomController failed.")
     }
 });

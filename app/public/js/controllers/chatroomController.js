@@ -1,18 +1,18 @@
-function CreateChatController() {
+function ChatroomController() {
 
     // bind event listeners to button clicks //
     //var that = this;
 
 // handle user logout //
     $('#button-create').click(function () {
-        console.log("The click function registered in createChatController");
+        console.log("The click function registered in ChatroomController");
         //that.attemptLogout();
     });
 
 
 //    this.attemptLogout = function()
 //    {
-//        console.log("attemptLogout was called in createChatController, so that's good...");
+//        console.log("attemptLogout was called in ChatroomController, so that's good...");
 //        var that = this;
 //        $.ajax({
 //            url: "/home",
