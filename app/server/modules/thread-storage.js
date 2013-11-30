@@ -1,3 +1,5 @@
+//TODO: Have this reuse the connection from account-manager
+
 var MongoDB 	= require('mongodb').Db;
 var Server 		= require('mongodb').Server;
 
@@ -19,7 +21,7 @@ db.open(function(e, d){
 var messages = db.collection('messages');
 
 
-var messageWriter = function (data, req, res) {
+var messageWriter = function (data) {
     //console.log("THREAD STORAGE got message from server: " + data);
     if (data.message) {
 

@@ -96,7 +96,7 @@ module.exports = function(app) {
 
     app.post('/create-chat', function(req, res) {
 
-        CM.addNewChat({
+        CM.chatroomWriter({
             chatname 	: req.param('chatname')
         }, function(e){
             if (e){
