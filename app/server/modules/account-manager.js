@@ -10,15 +10,27 @@ var dbName 		= 'node-login';
 /* establish the database connection */
 
 var db = new MongoDB(dbName, new Server(dbHost, dbPort, {auto_reconnect: true}), {w: 1});
-	db.open(function(e, d){
-	if (e) {
-		console.log(e);
-	}	else{
-		console.log('connected to database :: ' + dbName);
-	}
-});
 
 var accounts = db.collection('accounts');
+
+function openDatabase(callback) {
+    db.open(function(err, db) {
+        if (err)
+            return callback(err);
+
+        console.log('Connected successfully to MongoDB.');
+
+        return callback(null, db);
+    });
+}
+
+openDatabase(function(err) {
+    if(err) {
+        console.log("Connection to MongoDB failed: " + err);
+    }
+});
+
+exports.openDatabase = openDatabase;
 
 /* login validation methods */
 
