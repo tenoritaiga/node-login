@@ -24,12 +24,15 @@ function openDatabase(callback) {
     });
 }
 
-openDatabase(function(err) {
-    if(err) {
-        console.log("Connection to MongoDB failed: " + err);
+openDatabase(function(err, db) {
+    if (err) {
+        console.log('ERROR CONNECTING TO DATABASE');
+        console.log(err);
+        process.exit(1);
     }
 });
 
+exports.db = db;
 exports.openDatabase = openDatabase;
 
 /* login validation methods */
@@ -39,7 +42,7 @@ exports.autoLogin = function(user, pass, callback)
 	accounts.findOne({user:user}, function(e, o) {
 		if (o){
 			o.pass == pass ? callback(o) : callback(null);
-		}	else{
+		}else{
 			callback(null);
 		}
 	});
