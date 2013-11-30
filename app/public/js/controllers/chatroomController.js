@@ -1,31 +1,29 @@
 function ChatroomController() {
 
     // bind event listeners to button clicks //
-    //var that = this;
+    var that = this;
 
 // handle user logout //
     $('#button-create').click(function () {
         console.log("The click function registered in ChatroomController");
-        //that.attemptLogout();
+        that.writeChatName();
     });
 
-
-//    this.attemptLogout = function()
-//    {
-//        console.log("attemptLogout was called in ChatroomController, so that's good...");
-//        var that = this;
-//        $.ajax({
-//            url: "/home",
-//            type: "POST",
-//            data: {logout : true},
-//            success: function(data){
-//                that.showLockedAlert('You are now logged out.<br>Redirecting you back to the homepage.');
-//            },
-//            error: function(jqXHR){
-//                console.log(jqXHR.responseText+' :: '+jqXHR.statusText);
-//            }
-//        });
-//    }
-
-
+    this.writeChatName = function()
+    {
+        console.log("writeChatName was called in ChatroomController, so that's good...");
+        console.log("The chat name we got outside is: " + $('#chatname').val() );
+        //var that = this;
+        $.ajax({
+            url: "/chatloader",
+            type: "POST",
+            data: {chatname: $('#chatname').val()},
+            success: function(data){
+                console.log("Success, got " + data.chatname);
+            },
+            error: function(err){
+                console.log(err.responseText+' :: '+err.statusText);
+            }
+        });
+    }
 }

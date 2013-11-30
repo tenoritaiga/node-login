@@ -94,6 +94,10 @@ module.exports = function(app) {
         res.render('create-chat', { title: 'Create a new chat' });
     });
 
+    app.get('/chatloader', function(req, res) {
+        res.render('chatloader', { title: 'Welcome to pgpchat.'});
+    });
+
     app.post('/create-chat', function(req, res) {
 
         CM.chatroomWriter({
