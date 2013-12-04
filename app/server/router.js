@@ -106,7 +106,7 @@ module.exports = function (app) {
                 res.send(e, 400);
             } else {
                 console.log("OK");
-                console.log(o);
+                //console.log(o[0].chatname.chatname);
                 res.render('test', {  title: 'Test', chatrooms: o});
             }
 

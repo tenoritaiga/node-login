@@ -43,7 +43,7 @@ var chatroomReader = function(callback)
 {
     console.log("OK, READING FROM DB");
 
-    chatrooms.find().toArray(
+    chatrooms.find({},{chatname:true, _id:false}).toArray(
         function(e, res) {
             if (e) callback(e)
             else callback(null, res)
