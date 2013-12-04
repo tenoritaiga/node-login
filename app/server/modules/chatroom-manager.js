@@ -40,12 +40,14 @@ var chatroomWriter = function (data, callback) {
 }
 
 //TODO: call this from somewhere to add members when they join a chat. DB schema here may be wrong
-var memberWriter = function (data, callback) {
-    if (data) {
+var memberWriter = function (member, chatname, callback) {
+    if (member) {
 
         console.log("OK, WRITING TO DB");
 
-        chatrooms.insert({
+        var room = AM.db.collection(chatname);
+
+        room.insert({
             "member" : data
         }, function(e){
             if (e){

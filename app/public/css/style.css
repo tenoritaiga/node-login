@@ -14,8 +14,8 @@ body {
   background: -ms-radial-gradient(center, ellipse cover, #f2f9fe 0%, #d6f0fd 100%);
 /* IE10+ */
   background: radial-gradient(center, ellipse cover, #f2f9fe 0%, #d6f0fd 100%);
-/* W3C */
 }
+/* W3C */
 #logo {
   text-align: center;
 }
@@ -63,7 +63,7 @@ body {
 }
 .modal-single-input {
   width: 452px;
-  margin: -200px 0 0 -232px;
+  margin: -200px 0 -232px;
 }
 .modal-single-input form {
   color: #808080;
@@ -93,7 +93,7 @@ body {
 }
 .modal-alert {
   width: 310px;
-  margin: -200px 0 0 -150px;
+  margin: -200px 0 -150px;
 }
 #btn-logout {
   width: 100px;

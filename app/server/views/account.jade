@@ -7,7 +7,7 @@ input(type='hidden', value= user._id)#userId
     form( method="post")#account-form.form-horizontal.well.span6
         h1
         p#sub1.subheading Please tell us a little about yourself.
-        hr
+        hr1
         fieldset
             #name-cg.control-group
                 label.control-label(for='name-tf') Name
@@ -38,6 +38,7 @@ input(type='hidden', value= user._id)#userId
                 .controls
                     input#pass2-tf.input-xlarge(type='password',name='pass2',value='')
             .form-actions
+                button(type='button')#account-form-btn0.btn
                 button(type='button')#account-form-btn1.btn
                 button(type='submit')#account-form-btn2.btn
 
