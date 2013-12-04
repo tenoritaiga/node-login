@@ -39,6 +39,18 @@ var chatroomWriter = function (data, callback) {
     }
 }
 
+var chatroomReader = function(callback)
+{
+    console.log("OK, READING FROM DB");
+
+    chatrooms.find().toArray(
+        function(e, res) {
+            if (e) callback(e)
+            else callback(null, res)
+        });
+};
+
+
 //TODO: call this from somewhere to add members when they join a chat. DB schema here may be wrong
 var memberWriter = function (member, chatname, callback) {
     if (member) {
@@ -61,4 +73,5 @@ var memberWriter = function (member, chatname, callback) {
 }
 
 exports.chatroomWriter = chatroomWriter;
+exports.chatroomReader = chatroomReader;
 exports.memberWriter = memberWriter;
