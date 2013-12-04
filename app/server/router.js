@@ -110,6 +110,8 @@ module.exports = function(app) {
             }
         });
 
+        res.send({redirect: '/chatloader'});
+
     });
 
     app.get('/account', function(req, res) {

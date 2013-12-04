@@ -15,11 +15,13 @@ function ChatroomController() {
         console.log("The chat name we got outside is: " + $('#chatname').val() );
         //var that = this;
         $.ajax({
-            url: "/chatloader",
+            url: "/create-chat",
             type: "POST",
             data: {chatname: $('#chatname').val()},
             success: function(data){
                 console.log("Success, got " + data.chatname);
+                if(typeof data.redirect == 'string')
+                    window.location = data.redirect
             },
             error: function(err){
                 console.log(err.responseText+' :: '+err.statusText);
