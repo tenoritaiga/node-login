@@ -9,9 +9,11 @@ var dbName 		= 'node-login';
 
 var messages = AM.db.collection('messages');
 
-
 var messageWriter = function (data) {
     //console.log("THREAD STORAGE got message from server: " + data);
+
+    //var messages = AM.db.collection(data.chatname);
+
     if (data.message) {
 
         console.log("OK, WRITING TO DB");

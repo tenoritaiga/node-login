@@ -73,6 +73,9 @@ $(document).ready
 
 		var getChatters = function(chatroomName)
 		{
+
+            //TODO: get members of chatroomName and display names in pane
+
 			var chatters = "";
 			if(chatroomName == "Chat 1")
 			{

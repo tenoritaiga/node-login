@@ -117,6 +117,10 @@ module.exports = function(app) {
     app.get('/account', function(req, res) {
         res.render('account', { title: 'Account' });
     });
+
+    app.get('/settings', function(req, res) {
+        res.render('settings', { title: 'Account Settings' });
+    });
 	
 	app.post('/signup', function(req, res){
 		AM.addNewAccount({

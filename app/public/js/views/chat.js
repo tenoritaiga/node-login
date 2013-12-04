@@ -44,6 +44,7 @@ window.onload = function() {
         if(data.message) {
 
             //console.log(data.message);
+            //BAD - don't encrypt here, this will be after the plaintext has left the browser
             //data.message = openpgp.write_encrypted_message(pubkey,data.message);
             messages.push(data);
             var html = '';
@@ -127,16 +128,20 @@ window.onload = function() {
         return "(" + hours + ":" + minutes + " " + sign + ")";
     }
 
+    function getChatroom() {
+        return "Dummy chatroom";
+    }
+
     sendButton.onclick = sendMessage = function() {
         var timestamp = getTimestamp();
-        if(name.value == "") {
-            alert("Please type your name!");
-        } else {
+//        if(name.value == "") {
+//            alert("Please type your name!");
+//        } else {
             var text = field.value;
             var encrypted = openpgp.write_encrypted_message(pubkey,text);
-            socket.emit('send', { message: encrypted, username: name, time: timestamp});
+            socket.emit('send', { message: encrypted, username: name, room: getChatroom(), time: timestamp});
             field.value = "";
-        }
+        //}
     };
 
 }

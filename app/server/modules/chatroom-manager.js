@@ -39,4 +39,24 @@ var chatroomWriter = function (data, callback) {
     }
 }
 
+//TODO: call this from somewhere to add members when they join a chat. DB schema here may be wrong
+var memberWriter = function (data, callback) {
+    if (data) {
+
+        console.log("OK, WRITING TO DB");
+
+        chatrooms.insert({
+            "member" : data
+        }, function(e){
+            if (e){
+                console.log("Something bad happened while trying to write to db.");
+            }
+        });
+
+    } else {
+        console.log("There is a problem:", data);
+    }
+}
+
 exports.chatroomWriter = chatroomWriter;
+exports.memberWriter = memberWriter;

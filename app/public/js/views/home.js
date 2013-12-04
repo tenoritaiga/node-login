@@ -31,7 +31,7 @@ $(document).ready(function(){
 // customize the account settings form //
 	
 	$('#account-form h1').text('Account Settings');
-	$('#account-form #sub1').text('Here are the current settings for your account.');
+	$('#account-form #sub1').text('You can change your account information here.');
 	$('#user-tf').attr('disabled', 'disabled');
 	$('#account-form-btn1').html('Delete');
 	$('#account-form-btn1').addClass('btn-danger');

@@ -45,5 +45,6 @@ io.sockets.on('connection', function (socket) {
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
         TS.messageWriter(data);
+        //TODO write in chat name associated with message here
     });
 });
