@@ -238,7 +238,7 @@ exports.writeChatroom = function (data, callback) {
     }
 }
 
-exports.readChatrooms = function(callback)
+exports.readChatrooms = function(user, callback)
 {
 
     console.log("OK, READING FROM DB");
