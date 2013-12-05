@@ -20,18 +20,6 @@ html
                                 a(href='#', data-toggle='tab') Chat 2
                             li#newTabLi.tab
                                 a#newTab(href='#', data-toggle='tab') New
-                        section.btn-group.col-md-2
-                            button#settings.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-                                | Settings
-                                span.caret
-                            ul.dropdown-menu(role='menu')
-                                li
-                                    a(href='#') Profile
-                                li
-                                    a(href='#') Account
-                                li.divider
-                                li
-                                    a(href='#') Sign out
                 section#leftSide.col-md-2
                     .row
                         textarea#chatList.col-md-12(disabled='disabled')
@@ -70,6 +58,7 @@ block scripts
     script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.js')
     script(src='/js/views/home.js')
     script(src='/socket.io/socket.io.js')
+    script(src='/vendor/bootstrap/js/bootstrap.min.js')
     script(src='/vendor/bootstrap-modal.js')
     script(src='/vendor/bootstrap-transition.js')
     script(src='/js/controllers/homeController.js')
