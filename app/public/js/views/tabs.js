@@ -1,6 +1,5 @@
 var displayNewTab = function(newTabName)
 {
-    alert("hello");
     $("#newTabLi").removeClass("active");
     $("<li class ='tab active'><a href='#' data-toggle='tab'>"
         + newTabName + "</a></li>").insertBefore("#newTabLi");

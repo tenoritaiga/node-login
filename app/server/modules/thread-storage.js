@@ -1,4 +1,4 @@
-var AM = require('./account-manager');
+var DB = require('./database-manager');
 
 var MongoDB 	= require('mongodb').Db;
 var Server 		= require('mongodb').Server;
@@ -7,7 +7,7 @@ var dbPort 		= 27017;
 var dbHost 		= 'localhost';
 var dbName 		= 'node-login';
 
-var messages = AM.db.collection('messages');
+var messages = DB.db.collection('messages');
 
 var messageWriter = function (data) {
     //console.log("THREAD STORAGE got message from server: " + data);

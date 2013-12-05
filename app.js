@@ -37,14 +37,14 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 })
 
 var io = require('socket.io').listen(server);
-var TS = require('./app/server/modules/thread-storage');
+var DB = require('./app/server/modules/database-manager');
 
 io.sockets.on('connection', function (socket) {
     //socket.emit('message', { message: 'welcome to the chat' });
     console.log("socket.io got a connection");
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
-        TS.messageWriter(data);
+        DB.writeMessage(data);
         //TODO write in chat name associated with message here
     });
 });

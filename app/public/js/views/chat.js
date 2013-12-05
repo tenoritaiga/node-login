@@ -1,6 +1,9 @@
+var DB = require('./modules/database-manager');
+
 $(document).ready(function(){
-    $("span").click(function (){
+    $(".dropdown-menu > li").click(function (){
         displayNewTab($(this).text());
+        DB.writeChatroom($(this).text())
     });
 });
 

@@ -1,6 +1,5 @@
-var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
-var CM = require('./modules/chatroom-manager');
+var DB = require('./modules/database-manager');
 
 module.exports = function (app) {
 
@@ -12,7 +11,7 @@ module.exports = function (app) {
             res.render('login', { title: 'Hello - Please Login To Your Account' });
         } else {
             // attempt automatic login //
-            AM.autoLogin(req.cookies.user, req.cookies.pass, function (o) {
+            DB.autoLogin(req.cookies.user, req.cookies.pass, function (o) {
                 if (o != null) {
                     req.session.user = o;
                     res.redirect('/home');
@@ -24,7 +23,7 @@ module.exports = function (app) {
     });
 
     app.post('/', function (req, res) {
-        AM.manualLogin(req.param('user'), req.param('pass'), function (e, o) {
+        DB.manualLogin(req.param('user'), req.param('pass'), function (e, o) {
             if (!o) {
                 res.send(e, 400);
             } else {
@@ -54,7 +53,7 @@ module.exports = function (app) {
 
     app.post('/home', function (req, res) {
         if (req.param('user') != undefined) {
-            AM.updateAccount({
+            DB.updateAccount({
                 user: req.param('user'),
                 name: req.param('name'),
                 email: req.param('email'),
@@ -101,7 +100,7 @@ module.exports = function (app) {
 
     app.get('/test', function (req, res) {
 
-        CM.chatroomReader(function (e, o) {
+        DB.readChatrooms(function (e, o) {
             if (e) {
                 res.send(e, 400);
             } else {
@@ -128,7 +127,7 @@ module.exports = function (app) {
 
     app.post('/create-chat', function (req, res) {
 
-        CM.chatroomWriter({
+        DB.chatroomWriter({
             chatname: req.param('chatname')
         }, function (e) {
             if (e) {
@@ -151,7 +150,7 @@ module.exports = function (app) {
     });
 
     app.post('/signup', function (req, res) {
-        AM.addNewAccount({
+        DB.addNewAccount({
             name: req.param('name'),
             email: req.param('email'),
             user: req.param('user'),
@@ -170,7 +169,7 @@ module.exports = function (app) {
 
     app.post('/lost-password', function (req, res) {
         // look up the user's account via their email //
-        AM.getAccountByEmail(req.param('email'), function (o) {
+        DB.getAccountByEmail(req.param('email'), function (o) {
             if (o) {
                 res.send('ok', 200);
                 EM.dispatchResetPasswordLink(o, function (e, m) {
@@ -192,7 +191,7 @@ module.exports = function (app) {
     app.get('/reset-password', function (req, res) {
         var email = req.query["e"];
         var passH = req.query["p"];
-        AM.validateResetLink(email, passH, function (e) {
+        DB.validateResetLink(email, passH, function (e) {
             if (e != 'ok') {
                 res.redirect('/');
             } else {
@@ -209,7 +208,7 @@ module.exports = function (app) {
         var email = req.session.reset.email;
         // destory the session immediately after retrieving the stored email //
         req.session.destroy();
-        AM.updatePassword(email, nPass, function (e, o) {
+        DB.updatePassword(email, nPass, function (e, o) {
             if (o) {
                 res.send('ok', 200);
             } else {
