@@ -127,9 +127,9 @@ module.exports = function (app) {
 
     app.post('/create-chat', function (req, res) {
 
-        DB.chatroomWriter({
-            chatname: req.param('chatname')
-        }, function (e) {
+        DB.writeChatroom(
+           req.param('chatname')
+        , function (e) {
             if (e) {
                 res.send(e, 400);
             } else {
