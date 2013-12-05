@@ -1,3 +1,9 @@
+$(document).ready(function(){
+    $("span").click(function (){
+        displayNewTab($(this).text());
+    });
+});
+
 window.onload = function() {
 
     var messages = [];
