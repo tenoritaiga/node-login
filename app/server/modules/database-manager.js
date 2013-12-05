@@ -15,6 +15,7 @@ var accounts = db.collection('accounts');
 var chatrooms = db.collection('chatrooms');
 var messages = db.collection('messages');
 
+
 function openDatabase(callback) {
     db.open(function(err, db) {
         if (err)
@@ -83,6 +84,7 @@ exports.addNewAccount = function(newData, callback)
                         newData.pass = hash;
                         // append date stamp when record was created //
                         newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
+                        newData.chatrooms = [];
                         accounts.insert(newData, {safe: true}, callback);
                     });
                 }
