@@ -122,22 +122,6 @@ module.exports = function (app) {
     });
 
     app.get('/chatloader', function (req, res) {
-        if(req.xhr){
-            console.log(req.param("function"));
-            if(req.param("function") == "addChatToUser"){
-                var chat = "33";
-                DB.addChatToUser(req.cookies.user, chat, function (e) {
-                    if (e) {
-                        res.send("not ok");
-                    } else {
-                        res.send('ok');
-                    }
-                });
-
-            }
-            //var chat = req.param('chat');
-
-        } else
             res.render('chatloader', { title: 'Welcome to pgpchat.'});
     });
     app.post('/chatloader', function (req, res) {
@@ -147,16 +131,12 @@ module.exports = function (app) {
                 var chat = req.param("chatname");
                 DB.addChatToUser(req.cookies.user, chat, function (e, o) {
                     if (e) {
-                        console.log("getting here 1");
                         res.send(e.toString());
                     } else {
-                        console.log("getting here 2");
                         res.send('ok');
                     }
                 });
-        }
-        //var chat = req.param('chat');
-
+            }
         }
     });
 
