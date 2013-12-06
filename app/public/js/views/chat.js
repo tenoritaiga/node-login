@@ -1,11 +1,24 @@
-var DB = require('./modules/database-manager');
-
 $(document).ready(function(){
-    $(".dropdown-menu > li").click(function (){
-        displayNewTab($(this).text());
-        DB.writeChatroom($(this).text())
+    $("li > span").click(function (){
+        var text = $(this).text();
+        $.ajax({
+            type: "POST",
+            url: '/chatloader',
+            data: {function: "addChatToUser", chatname:text}
+
+        }).done(function(data, status){
+            if(data == 'added'){
+                displayNewTab(text);
+            } else {
+                alert(data.toString());
+            }
+        }).fail(function (data, status){
+            alert(data.toString() + " " + status);
+        });
+
     });
 });
+
 
 window.onload = function() {
 

@@ -240,11 +240,29 @@ exports.writeChatroom = function (data, callback) {
     }
 }
 
+exports.addChatToUser = function(username, chatname, callback)
+{
+    accounts.findOne({user:username}, function(e, user){
+        console.log("trying to find: " + username);
+        if(!user){
+            callback("chat already there", user);
+        } else {
+            accounts.findOne({user:username, chatrooms:chatname}, function(e, o){
+                console.log(username);
+                if(!o){
+                    user.chatrooms.push(chatname);
+                    accounts.save(user, {safe: true},function(e, o){});
+                    callback("added", user);
+                } else {
+                    callback("You are already in that channel!", user);
+                }
+            });
+
+        }
+    });
+}
 exports.readChatrooms = function(user, callback)
 {
-
-    console.log("OK, READING FROM DB");
-
     chatrooms.find({},{chatname:true, _id:false}).toArray(
         function(e, res) {
             if (e) callback(e)
