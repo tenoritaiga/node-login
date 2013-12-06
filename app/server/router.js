@@ -104,7 +104,7 @@ module.exports = function (app) {
             if (e) {
                 res.send(e, 400);
             } else {
-                console.log("OK");
+                //console.log("OK");
                 //console.log(o[0].chatname.chatname);
                 res.render('test', {  title: 'Test', chatrooms: o});
             }
@@ -126,7 +126,6 @@ module.exports = function (app) {
     });
     app.post('/chatloader', function (req, res) {
         if(req.xhr){
-            console.log(req.param("function"));
             if(req.param("function") == "addChatToUser"){
                 var chat = req.param("chatname");
                 DB.addChatToUser(req.cookies.user, chat, function (e, o) {
@@ -134,6 +133,17 @@ module.exports = function (app) {
                         res.send(e.toString());
                     } else {
                         res.send('ok');
+                    }
+                });
+            }
+            if(req.param("function") == "getUserChatrooms"){
+
+                console.log("username: " + req.cookies.user);
+                DB.getUserChatrooms(req.cookies.user, function (e, o) {
+                    if (e) {
+                        res.send(e);
+                    } else {
+                        res.send(o);
                     }
                 });
             }

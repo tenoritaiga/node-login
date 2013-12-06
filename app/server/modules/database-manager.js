@@ -244,9 +244,6 @@ exports.addChatToUser = function(username, chatname, callback)
 {
     accounts.findOne({user:username}, function(e, user){
         console.log("trying to find: " + username);
-        if(!user){
-            callback("chat already there", user);
-        } else {
             accounts.findOne({user:username, chatrooms:chatname}, function(e, o){
                 console.log(username);
                 if(!o){
@@ -257,17 +254,30 @@ exports.addChatToUser = function(username, chatname, callback)
                     callback("You are already in that channel!", user);
                 }
             });
+    });
+}
 
+exports.getUserChatrooms = function(username, callback)
+{
+    accounts.findOne({user:username}, function(err, user){
+        console.log(username);
+        if (user){
+            callback(null, user.chatrooms);
+        } else {
+            callback(null, "no such user");
         }
     });
 }
+
 exports.readChatrooms = function(user, callback)
 {
     chatrooms.find({},{chatname:true, _id:false}).toArray(
         function(e, res) {
-            if (e) callback(e)
-            else callback(null, res)
-        });
+            if (e)
+                callback(e);
+            else
+                callback(null, res);
+    });
 };
 
 

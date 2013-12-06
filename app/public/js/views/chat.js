@@ -1,4 +1,20 @@
 $(document).ready(function(){
+
+    //Display tabs from database
+    $.ajax({
+        type: "POST",
+        url: '/chatloader',
+        data: {function: "getUserChatrooms"}
+
+    }).done(function(data, status){
+            data.forEach(function (element, index, array) {
+                displayNewTab(element);
+            });
+        }).fail(function (data, status){
+            alert(data.toString() + " " + status);
+        });
+
+    //When user wants to join friends chat
     $("li > span").click(function (){
         var text = $(this).text();
         $.ajax({
@@ -32,6 +48,7 @@ window.onload = function() {
     //generateKeypair();
     var pubkey = generateKeypair(name,'supersecretpassphrase');
     //removeOverlay();
+
 
     function getCookie(c_name)
     {
