@@ -248,7 +248,7 @@ window.onload = function() {
     });
 
     socket.on('message', function (data) {
-	console.log("got message from server: "+data);
+	console.log("CLIENT: socket.on message is receiving " + data);
         if(data.message) {
 
             console.log("PRINTER GOT " + data.message);
