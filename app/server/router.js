@@ -164,7 +164,6 @@ module.exports = function (app) {
 
 
     app.post('/create-chat', function (req, res) {
-
         DB.writeChatroom(
            req.param('chatname')
         , function (e) {

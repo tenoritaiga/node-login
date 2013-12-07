@@ -224,9 +224,7 @@ var findByMultipleFields = function(a, callback)
 }
 
 exports.writeChatroom = function (data, callback) {
-    if (data) {
-
-        console.log("OK, WRITING TO DB");
+    if (data && !isChatroomPresent(data)) {
 
         chatrooms.insert({
             "chatname" : data
@@ -237,8 +235,38 @@ exports.writeChatroom = function (data, callback) {
         });
 
     } else {
+        if(!isChatroomPresent(data))
+            callback("Chatroom already exists");
+        else
+            callback("Not a valid chatroom");
         console.log("There is a problem:", data);
     }
+}
+
+exports.addChatnameToChatrooms = function(chatname, callback){
+    accounts.findOne({chatname:chatname}, function(e, chatroom){
+        if(chatroom){
+            callback("Chatroom already exists", chatroom);
+        } else {
+            chatroom.insert({
+                "chatname" : chatname
+            }, function(e){
+                if (e){
+                    console.log("Something bad happened while trying to write to db.");
+                }
+            });
+        }
+    });
+}
+
+isChatroomPresent = function(chatname){
+    accounts.findOne({chatname:chatname}, function(e, chatroom){
+        if(chatroom){
+            return true;
+        } else {
+           return false;
+        }
+    });
 }
 
 exports.addChatToUser = function(username, chatname, callback)
@@ -246,14 +274,15 @@ exports.addChatToUser = function(username, chatname, callback)
     accounts.findOne({user:username}, function(e, user){
         console.log("trying to find: " + username);
             accounts.findOne({user:username, chatrooms:chatname}, function(e, o){
-                console.log(username);
-                console.log(chatname);
-                if(!e){
+                if(!o && !isChatroomPresent(chatname)){
                     user.chatrooms.push(chatname);
                     accounts.save(user, {safe: true},function(e, o){});
                     callback("added", user);
                 } else {
-                    callback("You are already in that channel!", user);
+                    if(!isChatroomPresent(chatname))
+                        callback("That chatroom already exists");
+                    else
+                        callback("You are already in that channel!", user);
                 }
             });
     });
@@ -296,14 +325,14 @@ exports.getUserChatrooms = function(username, callback)
     });
 }
 
-exports.readChatrooms = function(user, callback)
+exports.readChatrooms = function(callback)
 {
     chatrooms.find({},{chatname:true, _id:false}).toArray(
         function(e, res) {
             if (e)
                 callback(e);
             else
-                callback(null, res);
+                callback(res, res);
     });
 };
 

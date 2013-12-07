@@ -1,8 +1,10 @@
 var displayNewTab = function(newTabName)
 {
-    $("#newTabLi").removeClass("active");
+    $("#tabs > li").removeClass("active");
+
     $("<li class ='tab active'><a href='#' data-toggle='tab'>"
         + newTabName + "</a></li>").insertBefore("#newTabLi");
+
 }
 
 var displayFriend = function(friendName){
@@ -75,6 +77,7 @@ $(document).ready(function(){
     (
         function()
         {
+
             $(this).removeClass("active");
             $("#newChatroomName").val("");
             $("#newChatroomDialog").dialog("open");
@@ -83,22 +86,20 @@ $(document).ready(function(){
     $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
     $("#addFriendDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
 
-    $(".tab").click
-    (
-        function()
+    $("#tabs").on('click', '#tabs > li',function()
+    {
+
+        if($(this).children().first().text() != "New" && !$(this).hasClass("active"))
         {
-
-            if($(this).children().first().text() != "New" && !$(this).hasClass("active"))
-            {
-                console.log("Triggered");
-                $(".tab").removeClass("active");
-                $(this).addClass("active");
-                loadChat($(this).text());
-                console.log("User clicked on " + $(this).text());
-            }
-
+            $("#tabs > li").removeClass("active");
+            $(this).addClass("active");
+            loadChat($(this).text());
         }
-    );
+    });
+
+
+
+
 
     $("#newChatroomSubmit").click
     (
