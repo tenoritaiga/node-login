@@ -42,6 +42,7 @@ io.sockets.on('connection', function (socket) {
     console.log("socket.io got a connection");
 
     socket.on('adduser', function(username, room){
+        console.log("Server: adduser got username: " + username + " and room: " + room);
         // store the username in the socket session for this client
         socket.username = username;
         // store the room name in the socket session for this client

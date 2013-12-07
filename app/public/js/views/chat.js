@@ -244,7 +244,7 @@ window.onload = function() {
     socket.on('connect', function(){
         // call the server-side function 'adduser' and send username
         console.log("Client: calling adduser with name " + name);
-        socket.emit('adduser', name);
+        socket.emit('adduser', name, getChatroom());
     });
 
     socket.on('message', function (data) {
