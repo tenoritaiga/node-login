@@ -244,11 +244,12 @@ window.onload = function() {
 
     socket.on('connect', function(){
         // call the server-side function 'adduser' and send username
+        console.log("Client: calling adduser with name " + name);
         socket.emit('adduser', name);
     });
 
     socket.on('message', function (data) {
-	//console.log("got message from server: "+data);
+	console.log("got message from server: "+data);
         if(data.message) {
 
             console.log("PRINTER GOT " + data.message);
