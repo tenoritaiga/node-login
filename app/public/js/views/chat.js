@@ -41,6 +41,12 @@ $(document).ready(function(){
         var text = $(this).text();
         addChat(text);
     });
+    $("#addFriend").click(
+        function(){
+            $(this).removeClass("active");
+            $("#addFriendUsername").val("");
+            $("#addFriendDialog").dialog("open");
+    });
 
 
     $("#newTab").click
@@ -53,6 +59,7 @@ $(document).ready(function(){
         }
     );
     $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
+    $("#addFriendDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
 
     $(".tab").click
     (
