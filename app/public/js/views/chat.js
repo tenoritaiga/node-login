@@ -209,7 +209,7 @@ window.onload = function() {
 
     //placeOverlay();
     //generateKeypair();
-    var pubkey = generateKeypair(name,'supersecretpassphrase');
+    //var pubkey = generateKeypair(name,'supersecretpassphrase');
     //removeOverlay();
 
 
