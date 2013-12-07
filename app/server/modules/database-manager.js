@@ -261,13 +261,15 @@ exports.addChatToUser = function(username, chatname, callback)
 exports.addFriendToUser = function(username, friend, callback)
 {
     accounts.findOne({user:username}, function(e, user){
+        console.log("looking for : " + username + ", " + friend);
         accounts.findOne({user:username, friends:friend}, function(e, o){
             if(!o){
                 user.friends.push(friend);
                 accounts.save(user, {safe: true},function(e, o){});
                 callback("Friend added", user);
             } else {
-                callback("You are have that friend!", user);
+
+                callback("You already have that friend!", user);
             }
         });
     });

@@ -136,6 +136,16 @@ module.exports = function (app) {
                     }
                 });
             }
+            if(req.param("function") == "addFriendToUser"){
+                var friendName = req.param("friendName");
+                DB.addFriendToUser(req.cookies.user, friendName, function (e, o) {
+                    if (e) {
+                        res.send(e.toString());
+                    } else {
+                        res.send('ok');
+                    }
+                });
+            }
             if(req.param("function") == "getUserChatrooms"){
 
                 console.log("username: " + req.cookies.user);
