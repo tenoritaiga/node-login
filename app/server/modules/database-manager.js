@@ -85,6 +85,7 @@ exports.addNewAccount = function(newData, callback)
                         // append date stamp when record was created //
                         newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
                         newData.chatrooms = [];
+                        newData.friends = [];
                         accounts.insert(newData, {safe: true}, callback);
                     });
                 }
@@ -258,6 +259,22 @@ exports.addChatToUser = function(username, chatname, callback)
     });
 }
 
+exports.addFriendToUser = function(username, friend, callback)
+{
+    accounts.findOne({user:username}, function(e, user){
+        console.log("looking for : " + username + ", " + friend);
+        accounts.findOne({user:username, friends:friend}, function(e, o){
+            if(!o){
+                user.friends.push(friend);
+                accounts.save(user, {safe: true},function(e, o){});
+                callback("Friend added", user);
+            } else {
+
+                callback("You already have that friend!", user);
+            }
+        });
+    });
+}
 exports.getUserChatrooms = function(username, callback)
 {
     accounts.findOne({user:username}, function(err, user){

@@ -57,6 +57,12 @@ a:link, a:link, a:visited, a:active
    padding-right:65px; 
 }
 
+#newChatroomName{
+    height:25px;
+}
+#addFriendUsername{
+    height:25px;
+}
 .overlay
 {
     background-color: #000;

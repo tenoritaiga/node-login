@@ -22,6 +22,24 @@ $(document).ready(function(){
                 alert(data.toString() + " " + status);
             });
     }
+    var addFriend = function(friendName){
+        alert(friendName);
+        $.ajax({
+            type: "POST",
+            url: '/chatloader',
+            data: {function: "addFriendToUser", friendName:friendName}
+
+        }).done(function(data, status){
+                 if(data == 'added'){
+                     // add to panel
+                     $("#addFriendDialog").dialog("close");
+                } else {
+                    alert(data.toString());
+                }
+            }).fail(function (data, status){
+                alert(data.toString() + " " + status);
+            });
+    }
     //Display tabs from database
     $.ajax({
         type: "POST",
@@ -41,6 +59,12 @@ $(document).ready(function(){
         var text = $(this).text();
         addChat(text);
     });
+    $("#addFriend").click(
+        function(){
+            $(this).removeClass("active");
+            $("#addFriendUsername").val("");
+            $("#addFriendDialog").dialog("open");
+    });
 
 
     $("#newTab").click
@@ -53,6 +77,7 @@ $(document).ready(function(){
         }
     );
     $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
+    $("#addFriendDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
 
     $(".tab").click
     (
@@ -78,7 +103,13 @@ $(document).ready(function(){
             createNewRoom();
         }
     );
-
+    $("#addFriendSubmit").click
+    (
+        function()
+        {
+            submitFriend();
+        }
+    );
     $("#newChatroomName").keypress
     (
         function(event)
@@ -90,7 +121,17 @@ $(document).ready(function(){
             }
         }
     );
-
+    $("#addFriendUsername").keypress
+    (
+        function(event)
+        {
+            var enterKey = 13;
+            if(event.which == enterKey)
+            {
+                submitFriend();
+            }
+        }
+    );
     var createNewRoom = function()
     {
         var newName = $("#newChatroomName").val();
@@ -106,7 +147,11 @@ $(document).ready(function(){
 
         }
     }
-
+    var submitFriend = function()
+    {
+        var friendName = $("#addFriendUsername").val();
+        addFriend(friendName);
+    }
     var loadChat = function(chatroomName)
     {
         $("#chatbox").val("");

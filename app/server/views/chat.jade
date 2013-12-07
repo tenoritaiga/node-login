@@ -36,7 +36,7 @@ html
                                     | Kevin
                                     span (Chat 1)
                                 li.divider
-                                li Add Friend
+                                li#addFriend Add Friend
                 section#rightSide.col-md-9
                     section#chatboxSection.row
                         #chatbox.col-md-12(disabled='disabled')
@@ -48,6 +48,10 @@ html
             label(for='newChatroomName') Name
             input#newChatroomName(type='text', name='newChatroomName', maxlength='15')
             button#newChatroomSubmit Create
+        #addFriendDialog(title='Add new friend')
+            label(for='addFriendUsername') Username
+            input#addFriendUsername(type='text', name='addFriendUsername', maxlength='15')
+            button#addFriendSubmit Add
 block scripts
     script(src='/vendor/jquery.min.js')
     script(src='/vendor/jquery.form.js')
