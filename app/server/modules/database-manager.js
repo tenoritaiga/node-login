@@ -259,17 +259,24 @@ exports.addChatToUser = function(username, chatname, callback)
     });
 }
 
-exports.addFriendToUser = function(username, friend, callback)
+exports.addFriendToUser = function(username, friendName, callback)
 {
     accounts.findOne({user:username}, function(e, user){
-        console.log("looking for : " + username + ", " + friend);
-        accounts.findOne({user:username, friends:friend}, function(e, o){
-            if(!o){
-                user.friends.push(friend);
-                accounts.save(user, {safe: true},function(e, o){});
-                callback("Friend added", user);
-            } else {
+        console.log("looking for : " + username + ", " + friendName);
+        accounts.findOne({user:username, friends:friendName}, function(e, o){
+                if(!o){ // check to make sure friend not already added
+                    accounts.findOne({user:friendName}, function(e, friend){
+                        if(friend){
+                            user.friends.push(friendName);
+                            accounts.save(user, {safe: true},function(e, blah){});
+                            callback("Friend added", friend);
+                        } else {
+                            // friend does not exist
+                            callback("That user does not exist!", friend);
+                        }
+                    });
 
+            } else {
                 callback("You already have that friend!", user);
             }
         });
