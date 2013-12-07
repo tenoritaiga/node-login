@@ -90,9 +90,11 @@ $(document).ready(function(){
 
             if($(this).children().first().text() != "New" && !$(this).hasClass("active"))
             {
+                console.log("Triggered");
                 $(".tab").removeClass("active");
                 $(this).addClass("active");
                 loadChat($(this).text());
+                console.log("User clicked on " + $(this).text());
             }
 
         }
@@ -244,11 +246,17 @@ window.onload = function() {
     //console.log("Username: " + getCookie("user"));
     var name = getCookie("user");
 
+    socket.on('connect', function(){
+        // call the server-side function 'adduser' and send username
+        console.log("Client: calling adduser with name " + name);
+        socket.emit('adduser', name, getChatroom());
+    });
+
     socket.on('message', function (data) {
-	//console.log("got message from server: "+data);
+	console.log("CLIENT: socket.on message is receiving " + data);
         if(data.message) {
 
-            //console.log(data.message);
+            console.log("PRINTER GOT " + data.message);
             //BAD - don't encrypt here, this will be after the plaintext has left the browser
             //data.message = openpgp.write_encrypted_message(pubkey,data.message);
             messages.push(data);
@@ -266,6 +274,13 @@ window.onload = function() {
             console.log("There is a problem:", data);
         }
     });
+
+
+//    socket.on('updaterooms',function(room){
+//
+//    });
+
+
 
     $("#inputMessage").keydown
     (
@@ -343,8 +358,8 @@ window.onload = function() {
 //            alert("Please type your name!");
 //        } else {
             var text = field.value;
-            var encrypted = openpgp.write_encrypted_message(pubkey,text);
-            socket.emit('send', { message: encrypted, username: name, room: getChatroom(), time: timestamp});
+            //var encrypted = openpgp.write_encrypted_message(pubkey,text);
+            socket.emit('send', { message: text, username: name, room: getChatroom(), time: timestamp});
             field.value = "";
         //}
     };
