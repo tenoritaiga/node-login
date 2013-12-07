@@ -23,7 +23,6 @@ $(document).ready(function(){
             });
     }
     var addFriend = function(friendName){
-        alert(friendName);
         $.ajax({
             type: "POST",
             url: '/chatloader',
