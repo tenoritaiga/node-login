@@ -141,8 +141,10 @@ module.exports = function (app) {
                 console.log("username: " + req.cookies.user);
                 DB.getUserChatrooms(req.cookies.user, function (e, o) {
                     if (e) {
+                        console.log("Router: getUserChatrooms returned error: " + e)
                         res.send(e);
                     } else {
+                        console.log("Router: getUserChatrooms returned object: " + o)
                         res.send(o);
                     }
                 });

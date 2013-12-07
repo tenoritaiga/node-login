@@ -246,7 +246,8 @@ exports.addChatToUser = function(username, chatname, callback)
         console.log("trying to find: " + username);
             accounts.findOne({user:username, chatrooms:chatname}, function(e, o){
                 console.log(username);
-                if(!o){
+                console.log(chatname);
+                if(!e){
                     user.chatrooms.push(chatname);
                     accounts.save(user, {safe: true},function(e, o){});
                     callback("added", user);
@@ -303,9 +304,10 @@ exports.writeMember = function (member, chatname, callback) {
 }
 
 exports.writeMessage = function (data) {
-    //console.log("THREAD STORAGE got message from server: " + data);
+    console.log("writeMessage got message from server: " + data);
+    console.log("Name of collection is " + data.room);
 
-    //var messages = AM.db.collection(data.chatname);
+    var messages = db.collection(data.room);
 
     if (data.message) {
 
