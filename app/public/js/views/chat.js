@@ -5,6 +5,9 @@ var displayNewTab = function(newTabName)
         + newTabName + "</a></li>").insertBefore("#newTabLi");
 }
 
+var displayFriend = function(friendName){
+    $("ul.dropdown-menu > li.divider").before('<li class="friend">' + friendName + '</li>');
+}
 $(document).ready(function(){
     var addChat = function(text){
         $.ajax({
@@ -29,10 +32,12 @@ $(document).ready(function(){
             data: {function: "addFriendToUser", friendName:friendName}
 
         }).done(function(data, status){
-                 if(data == 'added'){
-                     // add to panel
+                 if(data == 'Friend added'){
+                     //display friend here
+                     displayFriend(friendName);
                      $("#addFriendDialog").dialog("close");
-                } else {
+                     alert(data.toString());
+                 } else {
                     alert(data.toString());
                 }
             }).fail(function (data, status){
@@ -54,13 +59,13 @@ $(document).ready(function(){
         });
 
     //When user wants to join friends chat
-    $("li > span").click(function (){
+
+    $('ul').on('click', '.friend', function(){
         var text = $(this).text();
         addChat(text);
     });
     $("#addFriend").click(
         function(){
-            $(this).removeClass("active");
             $("#addFriendUsername").val("");
             $("#addFriendDialog").dialog("open");
     });
@@ -207,7 +212,7 @@ window.onload = function() {
 
     //placeOverlay();
     //generateKeypair();
-    var pubkey = generateKeypair(name,'supersecretpassphrase');
+    //var pubkey = generateKeypair(name,'supersecretpassphrase');
     //removeOverlay();
 
 

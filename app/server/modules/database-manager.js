@@ -265,13 +265,15 @@ exports.addFriendToUser = function(username, friendName, callback)
         accounts.findOne({user:username, friends:friendName}, function(e, o){
                 if(!o){ // check to make sure friend not already added
                     accounts.findOne({user:friendName}, function(e, friend){
-                        if(friend){
+                        if(friend && friend.name != user.name){
                             user.friends.push(friendName);
                             accounts.save(user, {safe: true},function(e, blah){});
                             callback("Friend added", friend);
                         } else {
-                            // friend does not exist
-                            callback("That user does not exist!", friend);
+                            if(friend.name == user.name)
+                                callback("You can't add yourself silly", friend);
+                            else// friend does not exist
+                                callback("That user does not exist!", friend);
                         }
                     });
 
