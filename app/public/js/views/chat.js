@@ -76,7 +76,26 @@ $(document).ready(function(){
             alert(data.toString() + " " + status);
         });
 
+    $.ajax({
+        type: "POST",
+        url: '/chatloader',
+        data: {function: "getThread"}
+    }).done(function(data, status) {
+            data.forEach(function (element, index, array) {
+                $("#chatbox").append(element);
+            });
+        }).fail(function (data,status) {
+            console.log("CLIENT: getThread failed...");
+        });
 
+//    var initTabs = function() {
+//
+//        console.log("Called initTabs");
+//        $("#tabs > li").removeClass("active");
+//
+//    }
+//
+//    initTabs();
 
     //When user wants to join friends chat
 
@@ -119,7 +138,7 @@ $(document).ready(function(){
             //TODO: have a check here to make sure the name returned is also in chats array
             currentchat = $(this).text();
             switchRoom(currentchat);
-            //loadChat(currentchat);
+            loadChat(currentchat);
         }
     });
 
@@ -182,7 +201,8 @@ $(document).ready(function(){
     }
     var loadChat = function(chatroomName)
     {
-        $("#chatbox").val("");
+        //$("#chatbox").val("");
+        $("#chatbox").text("TEXT FROM DATABASE GOES HERE");
         $("#chatList").val(getChatters(chatroomName));
     }
 

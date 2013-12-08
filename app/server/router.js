@@ -108,7 +108,6 @@ module.exports = function (app) {
                 //console.log(o[0].chatname.chatname);
                 res.render('test', {  title: 'Test', chatrooms: o});
             }
-
         });
     });
 
@@ -128,6 +127,7 @@ module.exports = function (app) {
         if(req.xhr){
             if(req.param("function") == "addChatToUser"){
                 var chat = req.param("chatname");
+                console.log("addChatToUser called, chat = " + chat);
                 DB.addChatToUser(req.cookies.user, chat, function (e, o) {
                     if (e) {
                         res.send(e.toString());
@@ -147,17 +147,34 @@ module.exports = function (app) {
                 });
             }
             if(req.param("function") == "getUserChatrooms"){
-
                 console.log("username: " + req.cookies.user);
                 DB.getUserChatrooms(req.cookies.user, function (e, o) {
                     if (e) {
-                        console.log("Router: getUserChatrooms returned error: " + e)
+                        console.log("Router: getUserChatrooms returned error: " + e);
                         res.send(e);
                     } else {
-                        console.log("Router: getUserChatrooms returned object: " + o)
+                        console.log("Router: getUserChatrooms returned object: " + o);
                         res.send(o);
                     }
                 });
+            }
+
+            if(req.param("function") == "getThread"){
+                chat = req.param("chatname");
+                console.log("SERVER: getThread called with chat " + chat);
+
+                DB.getThread(chat, function (e, o) {
+
+                    if(e) {
+                        console.log("Router: getThread returned error: " + e);
+                        res.send(e);
+                    }
+                    else {
+                        console.log("Router: getThread returned object: " + o);
+                        res.send(o);
+                    }
+                });
+
             }
         }
     });
@@ -258,13 +275,13 @@ module.exports = function (app) {
 // view & delete accounts //
 
     app.get('/print', function (req, res) {
-        AM.getAllRecords(function (e, accounts) {
+        DB.getAllRecords(function (e, accounts) {
             res.render('print', { title: 'Account List', accts: accounts });
         })
     });
 
     app.post('/delete', function (req, res) {
-        AM.deleteAccount(req.body.id, function (e, obj) {
+        DB.deleteAccount(req.body.id, function (e, obj) {
             if (!e) {
                 res.clearCookie('user');
                 res.clearCookie('pass');
@@ -278,7 +295,7 @@ module.exports = function (app) {
     });
 
     app.get('/reset', function (req, res) {
-        AM.delAllRecords(function () {
+        DB.delAllRecords(function () {
             res.redirect('/print');
         });
     });

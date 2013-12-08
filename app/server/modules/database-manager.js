@@ -243,6 +243,23 @@ exports.writeChatroom = function (data, callback) {
     }
 }
 
+exports.getThread = function (chatname, callback) {
+
+    var room = db.collection(chatname);
+
+    room.find({message:true}, function(e, o) {
+        if(!e) {
+            callback(o);
+        }
+        else {
+            console.log("getThread: error " + e)
+            callback(e);
+        }
+    });
+
+}
+
+
 exports.addChatnameToChatrooms = function(chatname, callback){
     accounts.findOne({chatname:chatname}, function(e, chatroom){
         if(chatroom){
