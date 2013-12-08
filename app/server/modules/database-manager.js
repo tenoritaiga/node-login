@@ -79,7 +79,7 @@ exports.addNewAccount = function(newData, callback)
             accounts.findOne({email:newData.email}, function(e, o) {
                 if (o){
                     callback('email-taken');
-                }	else{
+                } else {
                     saltAndHash(newData.pass, function(hash){
                         newData.pass = hash;
                         // append date stamp when record was created //
@@ -223,16 +223,18 @@ var findByMultipleFields = function(a, callback)
         });
 }
 
-exports.writeChatroom = function (data, callback) {
+writeChatroom = function (data, callback) {
     if (data && !isChatroomPresent(data)) {
-
+        console.log("inserting chatroom")
         chatrooms.insert({
-            "chatname" : data
+            "chatname" : data,
+            "chatters" : []
         }, function(e){
             if (e){
                 console.log("Something bad happened while trying to write to db.");
             }
         });
+        console.log("Finished writeChatroom");
 
     } else {
         if(!isChatroomPresent(data))
@@ -242,6 +244,7 @@ exports.writeChatroom = function (data, callback) {
         console.log("There is a problem:", data);
     }
 }
+exports.writeChatroom = writeChatroom;
 
 exports.addChatnameToChatrooms = function(chatname, callback){
     accounts.findOne({chatname:chatname}, function(e, chatroom){
@@ -277,6 +280,17 @@ exports.addChatToUser = function(username, chatname, callback)
                 if(!o && !isChatroomPresent(chatname)){
                     user.chatrooms.push(chatname);
                     accounts.save(user, {safe: true},function(e, o){});
+                    writeChatroom(chatname, function(e){});
+                    console.log("About to add chatter");
+
+                    addChatter(chatname, username, function(e,o){});
+
+
+                    //removeChatter(chatname, username, function(e){});
+                    //addChatter(chatname, "samuel", function(e,o){});
+                    //console.log("chatters: " + getChatters(chatname, function(e){}));
+                    //removeChatter(chatname, "samuel", function(e){});
+                    //console.log("removed samuel : " + getChatters(chatname, function(e){}));
                     callback("added", user);
                 } else {
                     if(!isChatroomPresent(chatname))
@@ -324,6 +338,46 @@ exports.getUserChatrooms = function(username, callback)
         }
     });
 }
+
+var getChatters = function(chatname, callback){
+    chatrooms.find({chatname:chatname}, function(e, chatroom) {
+        if(chatroom){
+            callback(chatroom.chatters);
+        }
+    });
+}
+exports.getChatters = getChatters;
+var addChatter = function(chatname, username, callback){
+    chatrooms.findOne({chatname:chatname}, function(e, chatroom) {
+        if (chatroom){
+            console.log(chatroom.chatname);
+            console.log(chatroom.chatters);
+            chatroom.chatters.push(username);
+            chatrooms.save(chatroom, {safe: true},function(e, o){});
+            callback("Added", chatroom);
+            // add user
+        }else{
+            callback("Chatroom doesn't exist", e);
+        }
+    });
+}
+exports.addChatter = addChatter;
+
+var removeChatter = function(chatname, username, callback){
+    chatrooms.findOne({chatname:chatname}, function(e, chatroom) {
+        if (chatroom){
+
+            var index = chatroom.chatname.indexOf(username);
+            chatroom.chatname.splice(index, 1);
+            chatrooms.save(chatroom, {safe: true},function(e, o){});
+            callback("Removed", chatroom);
+        }else{
+            callback("Chatroom doesn't exist", e);
+        }
+
+    });
+}
+exports.removeChatter = removeChatter;
 
 exports.readChatrooms = function(callback)
 {

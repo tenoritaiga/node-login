@@ -121,6 +121,20 @@ module.exports = function (app) {
         res.render('create-chat', { title: 'Create a new chat' });
     });
 
+    app.post('/create-chat', function (req, res) {
+        DB.writeChatroom(
+            req.param('chatname')
+            , function (e) {
+                if (e) {
+                    res.send(e, 400);
+                } else {
+                    res.send('ok', 200);
+                }
+            });
+
+        res.send({redirect: '/chatloader'});
+
+    });
     app.get('/chatloader', function (req, res) {
             res.render('chatloader', { title: 'Welcome to pgpchat.'});
     });
@@ -160,22 +174,6 @@ module.exports = function (app) {
                 });
             }
         }
-    });
-
-
-    app.post('/create-chat', function (req, res) {
-        DB.writeChatroom(
-           req.param('chatname')
-        , function (e) {
-            if (e) {
-                res.send(e, 400);
-            } else {
-                res.send('ok', 200);
-            }
-        });
-
-        res.send({redirect: '/chatloader'});
-
     });
 
     app.get('/account', function (req, res) {
