@@ -1,3 +1,12 @@
+var messages = [];
+var socket = io.connect('http://localhost:8080');
+var field = document.getElementById("inputMessage");
+var sendButton = document.getElementById("inputSend");
+var content = document.getElementById("chatbox");
+
+var chats = [];
+var currentchat;
+
 var displayNewTab = function(newTabName)
 {
     $("#tabs > li").removeClass("active");
@@ -55,10 +64,16 @@ $(document).ready(function(){
     }).done(function(data, status){
             data.forEach(function (element, index, array) {
                 displayNewTab(element);
+                chats.push(element);
             });
         }).fail(function (data, status){
             alert(data.toString() + " " + status);
         });
+
+    //Grab first chat returned from database query and set it as the one we want to initially connect to
+
+    console.log("Opening chat " + chats[0]);
+    currentchat = chats[0];
 
     //When user wants to join friends chat
 
@@ -86,6 +101,10 @@ $(document).ready(function(){
     $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
     $("#addFriendDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
 
+    function switchRoom(room){
+        socket.emit('switchRoom', room);
+    }
+
     $("#tabs").on('click', '#tabs > li',function()
     {
 
@@ -94,11 +113,13 @@ $(document).ready(function(){
             $("#tabs > li").removeClass("active");
             $(this).addClass("active");
             loadChat($(this).text());
+            console.log("Clicked on " + $(this).text() + ", switching to it");
+
+            //TODO: have a check here to make sure the name returned is also in chats array
+            currentchat = $(this).text();
+            switchRoom(currentchat);
         }
     });
-
-
-
 
 
     $("#newChatroomSubmit").click
@@ -207,12 +228,6 @@ $(document).ready(function(){
 
 window.onload = function() {
 
-    var messages = [];
-    var socket = io.connect('http://localhost:8080');
-    var field = document.getElementById("inputMessage");
-    var sendButton = document.getElementById("inputSend");
-    var content = document.getElementById("chatbox");
-
     //placeOverlay();
     //generateKeypair();
     //var pubkey = generateKeypair(name,'supersecretpassphrase');
@@ -252,6 +267,7 @@ window.onload = function() {
         console.log("Client: calling adduser with name " + name);
         socket.emit('adduser', name, getChatroom());
     });
+
 
     socket.on('message', function (data) {
 	console.log("CLIENT: socket.on message is receiving " + data);
@@ -350,7 +366,7 @@ window.onload = function() {
     }
 
     function getChatroom() {
-        return "Dummy chatroom";
+        return currentchat;
     }
 
     sendButton.onclick = sendMessage = function() {
