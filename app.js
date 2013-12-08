@@ -63,6 +63,7 @@ io.sockets.on('connection', function (socket) {
         // sent message to OLD room
         //socket.broadcast.to(socket.room).emit('message', 'SERVER', socket.username+' has left this room');
         // update socket session room title
+        console.log("SERVER: switching room to " + newroom);
         socket.room = newroom;
         //socket.broadcast.to(newroom).emit('message', 'SERVER', socket.username+' has joined this room');
         //socket.emit('updaterooms', rooms, newroom);

@@ -19,6 +19,11 @@ var displayNewTab = function(newTabName)
 var displayFriend = function(friendName){
     $("ul.dropdown-menu > li.divider").before('<li class="friend">' + friendName + '</li>');
 }
+
+function switchRoom(room){
+    socket.emit('switchRoom', room);
+}
+
 $(document).ready(function(){
     var addChat = function(text){
         $.ajax({
@@ -64,16 +69,15 @@ $(document).ready(function(){
     }).done(function(data, status){
             data.forEach(function (element, index, array) {
                 displayNewTab(element);
+                //console.log("CLIENT AJAX: Pushing chat "+ element + " to array");
                 chats.push(element);
             });
+            currentchat = chats[0]; //This is a dirty hack
         }).fail(function (data, status){
             alert(data.toString() + " " + status);
         });
 
-    //Grab first chat returned from database query and set it as the one we want to initially connect to
 
-    console.log("Opening chat " + chats[0]);
-    currentchat = chats[0];
 
     //When user wants to join friends chat
 
@@ -101,9 +105,7 @@ $(document).ready(function(){
     $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
     $("#addFriendDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
 
-    function switchRoom(room){
-        socket.emit('switchRoom', room);
-    }
+
 
     $("#tabs").on('click', '#tabs > li',function()
     {
@@ -118,6 +120,7 @@ $(document).ready(function(){
             //TODO: have a check here to make sure the name returned is also in chats array
             currentchat = $(this).text();
             switchRoom(currentchat);
+            //loadChat(currentchat);
         }
     });
 
@@ -204,7 +207,7 @@ $(document).ready(function(){
         }
         return chatters;
     }
-    loadChat("Chat 1");
+    //loadChat("Chat 1");
 
     var validRoomName = function(chatroomName)
     {
@@ -222,17 +225,10 @@ $(document).ready(function(){
 
         return true;
     }
-});
 
-
-
-window.onload = function() {
-
-    //placeOverlay();
-    //generateKeypair();
-    //var pubkey = generateKeypair(name,'supersecretpassphrase');
-    //removeOverlay();
-
+//    currentchat = chats[0];
+//    console.log("CLIENT: Initially opening room " + currentchat);
+//    switchRoom(currentchat);
 
     function getCookie(c_name)
     {
@@ -261,6 +257,7 @@ window.onload = function() {
 
     //console.log("Username: " + getCookie("user"));
     var name = getCookie("user");
+    console.log("chat.js is setting name to " + name);
 
     socket.on('connect', function(){
         // call the server-side function 'adduser' and send username
@@ -270,7 +267,7 @@ window.onload = function() {
 
 
     socket.on('message', function (data) {
-	console.log("CLIENT: socket.on message is receiving " + data);
+        console.log("CLIENT: socket.on message is receiving " + data);
         if(data.message) {
 
             console.log("PRINTER GOT " + data.message);
@@ -374,11 +371,27 @@ window.onload = function() {
 //        if(name.value == "") {
 //            alert("Please type your name!");
 //        } else {
-            var text = field.value;
-            //var encrypted = openpgp.write_encrypted_message(pubkey,text);
-            socket.emit('send', { message: text, username: name, room: getChatroom(), time: timestamp});
-            field.value = "";
+        var text = field.value;
+        //var encrypted = openpgp.write_encrypted_message(pubkey,text);
+        socket.emit('send', { message: text, username: name, room: getChatroom(), time: timestamp});
+        field.value = "";
         //}
     };
+
+
+});
+
+
+
+window.onload = function() {
+
+    //placeOverlay();
+    //generateKeypair();
+    //var pubkey = generateKeypair(name,'supersecretpassphrase');
+    //removeOverlay();
+
+    //Grab first chat returned from database query and set it as the one we want to initially connect to
+
+
 
 }
