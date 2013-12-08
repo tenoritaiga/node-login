@@ -76,17 +76,20 @@ $(document).ready(function(){
             alert(data.toString() + " " + status);
         });
 
-    $.ajax({
-        type: "POST",
-        url: '/chatloader',
-        data: {function: "getThread"}
-    }).done(function(data, status) {
-            data.forEach(function (element, index, array) {
-                $("#chatbox").append(element);
+    var getThread = function(text) {
+
+        $.ajax({
+            type: "POST",
+            url: '/chatloader',
+            data: {function: "getThread", chatname:text}
+        }).done(function(data, status) {
+                data.forEach(function (element, index, array) {
+                    $("#chatbox").append(element);
+                });
+            }).fail(function (data,status) {
+                console.log("CLIENT: getThread failed...");
             });
-        }).fail(function (data,status) {
-            console.log("CLIENT: getThread failed...");
-        });
+    }
 
 //    var initTabs = function() {
 //
@@ -202,7 +205,7 @@ $(document).ready(function(){
     var loadChat = function(chatroomName)
     {
         //$("#chatbox").val("");
-        $("#chatbox").text("TEXT FROM DATABASE GOES HERE");
+        getThread(chatroomName);
         $("#chatList").val(getChatters(chatroomName));
     }
 
