@@ -69,7 +69,6 @@ $(document).ready(function(){
     }).done(function(data, status){
             data.forEach(function (element, index, array) {
                 displayNewTab(element);
-                //console.log("CLIENT AJAX: Pushing chat "+ element + " to array");
                 chats.push(element);
             });
             currentchat = chats[0]; //This is a dirty hack
@@ -225,10 +224,16 @@ $(document).ready(function(){
 
         return true;
     }
+});
 
-//    currentchat = chats[0];
-//    console.log("CLIENT: Initially opening room " + currentchat);
-//    switchRoom(currentchat);
+
+
+window.onload = function() {
+
+    //placeOverlay();
+    //generateKeypair();
+    //var pubkey = generateKeypair(name,'supersecretpassphrase');
+    //removeOverlay();
 
     function getCookie(c_name)
     {
@@ -267,7 +272,7 @@ $(document).ready(function(){
 
 
     socket.on('message', function (data) {
-        console.log("CLIENT: socket.on message is receiving " + data);
+	console.log("CLIENT: socket.on message is receiving " + data);
         if(data.message) {
 
             console.log("PRINTER GOT " + data.message);
@@ -371,27 +376,11 @@ $(document).ready(function(){
 //        if(name.value == "") {
 //            alert("Please type your name!");
 //        } else {
-        var text = field.value;
-        //var encrypted = openpgp.write_encrypted_message(pubkey,text);
-        socket.emit('send', { message: text, username: name, room: getChatroom(), time: timestamp});
-        field.value = "";
+            var text = field.value;
+            //var encrypted = openpgp.write_encrypted_message(pubkey,text);
+            socket.emit('send', { message: text, username: name, room: getChatroom(), time: timestamp});
+            field.value = "";
         //}
     };
-
-
-});
-
-
-
-window.onload = function() {
-
-    //placeOverlay();
-    //generateKeypair();
-    //var pubkey = generateKeypair(name,'supersecretpassphrase');
-    //removeOverlay();
-
-    //Grab first chat returned from database query and set it as the one we want to initially connect to
-
-
 
 }
