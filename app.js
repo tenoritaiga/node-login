@@ -59,12 +59,13 @@ io.sockets.on('connection', function (socket) {
     socket.on('switchRoom', function(newroom){
         socket.leave(socket.room);
         socket.join(newroom);
-        socket.emit('message', 'SERVER', 'you have connected to '+ newroom);
+        //socket.emit('message', 'SERVER', 'you have connected to '+ newroom);
         // sent message to OLD room
-        socket.broadcast.to(socket.room).emit('message', 'SERVER', socket.username+' has left this room');
+        //socket.broadcast.to(socket.room).emit('message', 'SERVER', socket.username+' has left this room');
         // update socket session room title
+        console.log("SERVER: switching room to " + newroom);
         socket.room = newroom;
-        socket.broadcast.to(newroom).emit('message', 'SERVER', socket.username+' has joined this room');
+        //socket.broadcast.to(newroom).emit('message', 'SERVER', socket.username+' has joined this room');
         //socket.emit('updaterooms', rooms, newroom);
     });
 
