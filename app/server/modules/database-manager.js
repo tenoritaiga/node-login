@@ -250,12 +250,19 @@ exports.getThread = function (chatname, callback) {
 
     var room = db.collection(chatname);
 
-    room.findOne({}, function(e, o) {
+    room.find({},{message:true, _id:false}).toArray(
+        function(e, o) {
         if(!e) {
-            callback(null, o);
+            console.log("About to print object");
+            console.log(o);
+            var arr = [];
+            for(var i = 0; i < o.length; i++) {
+                arr.push(o[i].message);
+            }
+            callback(null, arr);
         }
         else {
-            console.log("getThread: error " + e)
+            console.log("getThread: error " + e);
             callback(e, null);
         }
     });
