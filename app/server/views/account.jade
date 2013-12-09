@@ -1,3 +1,7 @@
+head
+    link(rel='stylesheet', href='/css/colorpicker.css')
+    link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
+
 // preset form values if we receive a userdata object //
 - user = typeof(udata) != 'undefined' ? udata : { }
 // store the userId on the client side in a hidden input field //
@@ -17,15 +21,23 @@ input(type='hidden', value= user._id)#userId
                 label.control-label(for='email-tf') Email
                 .controls
                     input#email-tf.input-xlarge(type='text', name='email', value= user.email)
-            #clist-cg.control-group
+            #avatar-cg.control-group
+                label.control-label(for='avatar-tf') Avatar
+                .controls
+                    input#avatar-tf.input-xlarge(type='file', name='avatar', value= user.avatar)
+            #color-cg.control-group
+                label.control-label(for='color-tf') Chat Color
+                .controls
+                    a#cp4.btn.small(href='#', data-color-format='hex', data-color='rgb(255, 255, 255)') Change background color
+                #clist-cg.control-group
                 //label.control-label(for='country-list') Location
                 //.controls
                 //	select#country-list(name='country')
                 //		each item in countries
                 //			option(selected=item.name == user.country)= item.name
-            hr
-            p#sub2.subheading
-            #user-cg.control-group
+                hr
+                p#sub2.subheading
+                #user-cg.control-group
                 label.control-label(for='user-tf') Username
                 .controls
                     input#user-tf.input-xlarge.disabled(type='text', name='user', value= user.user)

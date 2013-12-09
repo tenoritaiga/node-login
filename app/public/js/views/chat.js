@@ -3,6 +3,7 @@ var socket = io.connect('http://localhost:8080');
 var field = document.getElementById("inputMessage");
 var sendButton = document.getElementById("inputSend");
 var content = document.getElementById("chatbox");
+var container = document.getElementById("container");
 
 var chats = [];
 var currentchat;
@@ -268,6 +269,8 @@ window.onload = function() {
     //var pubkey = generateKeypair(name,'supersecretpassphrase');
     //removeOverlay();
 
+    container.style.background = $.cookie('color');
+
     function getCookie(c_name)
     {
         var c_value = document.cookie;
@@ -389,6 +392,11 @@ window.onload = function() {
         var hours = date.getHours();
         var sign = "AM";
         var minutes = date.getMinutes();
+
+        //Prepend a zero if needed
+        if(minutes < 10) {
+            minutes = "0" + date.getMinutes().toString();
+        }
 
         if(hours >= 12)
         {
