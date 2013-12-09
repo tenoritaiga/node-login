@@ -269,7 +269,9 @@ window.onload = function() {
     //var pubkey = generateKeypair(name,'supersecretpassphrase');
     //removeOverlay();
 
-    container.style.background = $.cookie('color');
+    //Set background color to cookie-defined color if it exists
+    if($.cookie('color') != null)
+        container.style.background = $.cookie('color');
 
     function getCookie(c_name)
     {
@@ -411,6 +413,7 @@ window.onload = function() {
     }
 
     function getChatroom() {
+        alert("getChatroom is returning " + currentchat);
         return currentchat;
     }
 

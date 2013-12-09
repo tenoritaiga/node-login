@@ -84,7 +84,7 @@ exports.addNewAccount = function(newData, callback)
                         newData.pass = hash;
                         // append date stamp when record was created //
                         newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-                        newData.chatrooms = [];
+                        newData.chatrooms = ["Default"];
                         newData.friends = [];
                         accounts.insert(newData, {safe: true}, callback);
                     });
@@ -354,10 +354,17 @@ exports.addFriendToUser = function(username, friendName, callback)
 }
 exports.getUserChatrooms = function(username, callback)
 {
+    var defaultchat = [];
+    defaultchat.push("Default");
+
     accounts.findOne({user:username}, function(err, user){
         console.log(username);
         if (user){
-            callback(null, user.chatrooms);
+            if(user.chatrooms.length <= 0)
+                callback(null,defaultchat);
+            else
+                callback(null, user.chatrooms);
+                callback(null, user.chatrooms);
         } else {
             callback(null, "no such user");
         }

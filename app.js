@@ -84,9 +84,11 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('send', function (data) {
         //io.sockets.emit('message', data);
+        if(typeof socket.room === 'undefined') {
+            socket.room = "Default";
+        }
         console.log("Server is emitting message " + data + " in room " + socket.room);
         io.sockets.in(socket.room).emit('message', data);
         DB.writeMessage(data);
-        //TODO: make sure chat name associated with message is being written in here
     });
 });
