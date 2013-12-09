@@ -250,11 +250,11 @@ exports.getThread = function (chatname, callback) {
 
     var room = db.collection(chatname);
 
-    room.find({},{message:true, _id:false}).toArray(
+    room.find({},{username:true, message:true, time:true, _id:false}).toArray(
         function(e, o) {
         if(!e) {
-            console.log("About to print object");
-            console.log(o);
+            //console.log("About to print object");
+            //console.log(o);
             var arr = [];
             for(var i = 0; i < o.length; i++) {
                 arr.push(o[i].message);
@@ -448,7 +448,8 @@ exports.writeMessage = function (data) {
 
         messages.insert({
             "username" : data.username,
-            "message" : data.message
+            "message" : data.message,
+            "time" : data.time
         }, function(e){
             if (e){
                 console.log("Something bad happened while trying to write to db.");
