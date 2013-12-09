@@ -257,7 +257,8 @@ exports.getThread = function (chatname, callback) {
             //console.log(o);
             var arr = [];
             for(var i = 0; i < o.length; i++) {
-                arr.push(o[i].message);
+                //arr.push(o[i].message);
+                arr.push(o[i]);    //push whole object so we can get other attributes besides the message itself
             }
             callback(null, arr);
         }

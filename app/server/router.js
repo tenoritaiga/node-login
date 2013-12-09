@@ -184,7 +184,8 @@ module.exports = function (app) {
                         res.send(e);
                     }
                     else {
-                        console.log("Router: getThread returned object: " + o);
+                        console.log("Router: getThread returned object: ");
+                        console.log(o);
                         res.send(o);
                     }
                 });

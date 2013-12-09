@@ -83,9 +83,19 @@ $(document).ready(function(){
             url: '/chatloader',
             data: {function: "getThread", chatname:text}
         }).done(function(data, status) {
-                data.forEach(function (element, index, array) {
-                    $("#chatbox").append(element);
-                });
+                var html = '';
+
+
+                for(var i=0;i<data.length;i++) {
+                    html += '<b>' + (data[i].time ? data[i].time : 'Unknown') + " " +(data[i].username ? data[i].username : 'Server') + ': </b>';
+                    html += data[i].message + '<br />';
+                }
+//                data.forEach(function (messages, index, array) {
+//                    //$("#chatbox").append(element);
+//                    html += '<b>' + (messages[i].time ? messages[i].time : 'Unknown') + " " +(messages[i].username ? messages[i].username : 'Server') + ': </b>';
+//                    html += messages[i].message + '<br />';
+//                });
+                content.innerHTML = html;
             }).fail(function (data,status) {
                 console.log("CLIENT: getThread failed...");
             });
@@ -306,11 +316,13 @@ window.onload = function() {
             for(var i=0; i<messages.length; i++) {
                 html += '<b>' + (messages[i].time ? messages[i].time : 'Unknown') + " " +(messages[i].username ? messages[i].username : 'Server') + ': </b>';
                 html += messages[i].message + '<br />';
+                //console.log("Trying logarithms..." + Math.log(10));
             }
 
             //console.log(content.innerHTML);
-            content.innerHTML = html;
+            content.innerHTML += html;
             content.scrollTop = content.scrollHeight;
+            messages = []; //clear that jaun
             //content.value = html;
         } else {
             console.log("There is a problem:", data);
