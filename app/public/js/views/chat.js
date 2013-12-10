@@ -269,6 +269,8 @@ $(document).ready(function(){
                         var link = $('a', $(this).parent());
                         $("#"+chatname).remove();
                         $("#Default").addClass("active");
+                        switchRoom("Default");
+                        loadChat("Default");
                     } else {
                         alert("Alert: " + data.toString());
                     }
