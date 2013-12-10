@@ -252,8 +252,11 @@ $(document).ready(function(){
         if(validRoomName(newName))
         {
             $("#newChatroomDialog").dialog("close");
-            loadChat(newName);
             addChat(newName);
+            console.log("ABOUT TO TRY SWITCHING ROOM TO " + newName);
+            currentchat = newName;
+            switchRoom(newName);
+            loadChat(newName);
 
         }
     }
@@ -359,7 +362,7 @@ window.onload = function() {
 
 
     socket.on('message', function (data) {
-	console.log("CLIENT: socket.on message is receiving " + data);
+	console.log("CLIENT: socket.on message is receiving " + data.message + " in " + data.room);
         if(data.message) {
 
             console.log("PRINTER GOT " + data.message);

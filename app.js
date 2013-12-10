@@ -67,6 +67,11 @@ io.sockets.on('connection', function (socket) {
         socket.room = newroom;
         //socket.broadcast.to(newroom).emit('message', 'SERVER', socket.username+' has joined this room');
         //socket.emit('updaterooms', rooms, newroom);
+
+        console.log("switchRoom: the socket now looks like: ")
+        console.log(socket);
+
+        console.log("and the associated room is " + socket.room);
     });
 
     // when the user disconnects.. perform this
@@ -89,6 +94,6 @@ io.sockets.on('connection', function (socket) {
         }
         console.log("Server is emitting message " + data + " in room " + socket.room);
         io.sockets.in(socket.room).emit('message', data);
-        DB.writeMessage(data);
+        DB.writeMessage(data);1
     });
 });
