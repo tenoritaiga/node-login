@@ -90,6 +90,8 @@ $(document).ready(function(){
                 displayNewTab(element);
                 chats.push(element);
             });
+            $('.tab').removeClass('active');
+            $('#Default').addClass('active');
             currentchat = chats[0]; //This is a dirty hack
         }).fail(function (data, status){
             alert(data.toString() + " " + status);
