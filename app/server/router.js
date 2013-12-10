@@ -171,6 +171,17 @@ module.exports = function (app) {
                     }
                 });
             }
+            if(req.param("function") == "removeChatroomFromUser"){
+                var chatname = req.param("chatname");
+                DB.removeChatroomFromUser(req.cookies.user, chatname, function (e, o) {
+                    console.log("Removing with user: " + req.cookies.user + " and chatname: " + chatname);
+                    if (e) {
+                        res.send(e.toString());
+                    } else {
+                        res.send('removed');
+                    }
+                });
+            }
             if(req.param("function") == "getFriendsChatrooms"){
                 var username = req.param('username');
                 DB.getUserChatrooms(username, function (e, o) {

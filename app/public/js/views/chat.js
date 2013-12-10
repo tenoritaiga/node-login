@@ -11,10 +11,13 @@ var currentchat;
 var displayNewTab = function(newTabName)
 {
     $("#tabs > li").removeClass("active");
-
-    $("<li class ='tab active'><a href='#' data-toggle='tab'>"
-        + newTabName + "</a></li>").insertBefore("#newTabLi");
-
+    if(newTabName == "Default"){
+        $("<li id='" + newTabName + "'class ='tab active'><a class='tabText' href='#' data-toggle='tab'>"
+            + newTabName + "</a></li>").insertBefore("#newTabLi");
+    } else {
+        $("<li id='" + newTabName + "'class ='tab active'><a href='#' data-toggle='tab'><button id='leaveChat' class='close' type='button'>x</button>"
+            + newTabName + "</a></li>").insertBefore("#newTabLi");
+    }
 }
 
 var displayFriend = function(friendName){
@@ -182,7 +185,11 @@ $(document).ready(function(){
             $("#newChatroomDialog").dialog("open");
         }
     );
-    $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
+    var dialogClose = function (event, ui){
+        $("#newTabLi").removeClass('active');
+    }
+    $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false, beforeClose: dialogClose}
+    );
     $("#addFriendDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
     $("#joinFriendChatDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
 
@@ -242,6 +249,31 @@ $(document).ready(function(){
             }
         }
     );
+    $("#tabs").on('click', '#leaveChat',function(e){
+        //alert("Leaving chat");
+
+        e.preventDefault();
+        if (window.confirm("Are you sure you want to leave this chat?")) {
+            //alert($(this).parent().text().substring(1));
+            chatname = $(this).parent().text().substring(1);
+            $.ajax({
+                type: "POST",
+                url: '/chatloader',
+                data: {function: "removeChatroomFromUser", chatname:chatname}
+
+            }).done(function(data, status){
+                    if(data.toString() == 'removed'){
+                        var link = $('a', $(this).parent());
+                        $("#"+chatname).remove();
+                        $("#Default").addClass("active");
+                    } else {
+                        alert("Alert: " + data.toString());
+                    }
+                }).fail(function (data, status){
+                    alert(data.toString() + " " + status);
+                });
+        }
+    });
     var createNewRoom = function()
     {
         var newName = $("#newChatroomName").val();

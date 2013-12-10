@@ -35,6 +35,19 @@ a:link, a:link, a:visited, a:active
    height:80px;
    margin-bottom:10px;
 }
+a:link{
+    color:black;
+    font-weight: bold;
+}
+#leaveChat{
+    color:red;
+}
+.tab{
+    color:#FFFFFF;
+}
+.close{
+    margin-left:10px;
+}
 
 #container{
    border-width:4px;

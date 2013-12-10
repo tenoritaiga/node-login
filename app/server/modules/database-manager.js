@@ -425,6 +425,21 @@ var removeChatter = function(chatname, username, callback){
 }
 exports.removeChatter = removeChatter;
 
+var removeChatroomFromUser = function(username, chatname, callback){
+    accounts.findOne({user:username, chatrooms:chatname}, function(e, user) {
+        if (user){
+            var index = user.chatrooms.indexOf(chatname);
+            user.chatrooms.splice(index, 1);
+            accounts.save(user, {safe: true},function(e, o){});
+            callback("removed", user);
+        } else {
+            callback("Chatroom doesn't exist", e);
+        }
+
+    });
+}
+exports.removeChatroomFromUser = removeChatroomFromUser;
+
 exports.readChatrooms = function(callback)
 {
     chatrooms.find({},{chatname:true, _id:false}).toArray(
