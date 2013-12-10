@@ -39,6 +39,23 @@ a:link{
     color:black;
     font-weight: bold;
 }
+.dropdown-menu > li:hover{
+    background-color:#BBBBBB;
+    cursor: pointer;
+}
+ul.dropdown-menu > li{
+    text-align:center;
+}
+#friends{
+    font-weight:bold;
+}
+#addFriend{
+    font-weight:bold;
+}
+#inputSend{
+    font-weight:bold;
+}
+
 #leaveChat{
     color:red;
 }
