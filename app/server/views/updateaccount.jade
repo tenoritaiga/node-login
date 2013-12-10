@@ -36,15 +36,15 @@ input(type='hidden', value= user._id)#userId
                 hr
                 p#sub2.subheading
                 #user-cg.control-group
-                label.control-label(for='user-tf') Username
+                label.control-label(for='user-tf') Old Password
                 .controls
-                    input#user-tf.input-xlarge.disabled(type='text', name='user', value= user.user)
+                    input#oldpass-tf.input-xlarge(type='password', name='oldpass', value='')
             #pass-cg.control-group
-                label.control-label(for='pass-tf') Password
+                label.control-label(for='pass-tf') New Password
                 .controls
                     input#pass-tf.input-xlarge(type='password', name='pass', value='')
             #pass2-cg.control-group
-                label.control-label(for='pass2-tf') Password (repeat)
+                label.control-label(for='pass2-tf') New Password (repeat)
                 .controls
                     input#pass2-tf.input-xlarge(type='password',name='pass2',value='')
             .form-actions

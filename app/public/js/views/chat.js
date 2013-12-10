@@ -112,10 +112,13 @@ $(document).ready(function(){
 //                    html += messages[i].message + '<br />';
 //                });
                 content.innerHTML = html;
+                content.scrollTop = content.scrollHeight;
             }).fail(function (data,status) {
                 console.log("CLIENT: getThread failed...");
             });
     }
+
+    getThread("Default");
 
 //    var initTabs = function() {
 //
