@@ -253,7 +253,7 @@ $(document).ready(function(){
         {
             $("#newChatroomDialog").dialog("close");
             addChat(newName);
-            console.log("ABOUT TO TRY SWITCHING ROOM TO " + newName);
+            //console.log("ABOUT TO TRY SWITCHING ROOM TO " + newName);
             currentchat = newName;
             switchRoom(newName);
             loadChat(newName);
