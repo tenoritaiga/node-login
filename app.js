@@ -1,7 +1,30 @@
 /**
-	* Node.js Login Boilerplate
-	* More Info : http://bit.ly/LsODY8
-	* Copyright (c) 2013 Stephen Braitsch
+ *
+ * CS 546, Fall 2013
+ * Suketu Shah, Anthony Mondelli, Brandon Ling, Matt Witkowski
+ *
+ * pgpchat is an experimental secure chat platform built on nodejs, expressjs, openpgp.js, SJCL, jade, mongodb, node-login, and a few other platforms.
+ *
+ * EXTERNAL CODE LISTED BELOW
+ *
+ * node-login is Copyright (c) 2013 Stephen Braitsch, code forked from https://github.com/braitsch/node-login. Also see http://bit.ly/LsODY8
+ * node-login is free and open source software released under the MIT License, which is included with this project in the file license.md.
+ *
+ * bootstrap-colorpicker.js is Copyright (c) 2012 Stefan Petre, http://www.eyecon.ro/bootstrap-colorpicker
+ * bootstrap-colorpicker is free and open source software released under the Apache License, available at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * jquery-cookie is free and open source software released under the MIT License. Code from https://github.com/carhartl/jquery-cookie
+ *
+ * The Stanford Javascript Crypto Library (SJCL) is Copyright (c) 2009-2010 Emily Stark, Dan Boneh, Stanford University.
+ * SJCL is free and open source software released under a dual license which can be found in the included file sjcl-license.md.
+ *
+ * OpenPGP.js is free and open source software released under the GNU Lesser General Public License, v2.1. Code from https://github.com/openpgpjs/openpgpjs/,
+ * license text available at https://github.com/openpgpjs/openpgpjs/blob/master/LICENSE
+ *
+ * For all included nodejs modules, see the node_modules folder for licensing information. All included code is,
+ * to the best of the authors' knowledge, free and open source software.
+ *
+ *
 **/
 var express = require('express');
 var http = require('http');
@@ -67,6 +90,11 @@ io.sockets.on('connection', function (socket) {
         socket.room = newroom;
         //socket.broadcast.to(newroom).emit('message', 'SERVER', socket.username+' has joined this room');
         //socket.emit('updaterooms', rooms, newroom);
+
+        //console.log("switchRoom: the socket now looks like: ")
+        //console.log(socket);
+
+        //console.log("and the associated room is " + socket.room);
     });
 
     // when the user disconnects.. perform this
