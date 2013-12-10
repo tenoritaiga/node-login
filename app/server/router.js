@@ -1,6 +1,8 @@
 var EM = require('./modules/email-dispatcher');
 var DB = require('./modules/database-manager');
 
+var fs = require('fs');
+
 module.exports = function (app) {
 
 // main login page //
@@ -238,6 +240,44 @@ module.exports = function (app) {
                 res.send('ok', 200);
             }
         });
+    });
+
+    app.post('/updateaccount', function(req, res) {
+
+        console.log("Got POST to updateaccount");
+        fs.readFile(req.files.image.path, function (err, data) {
+
+            var imageName = req.files.image.name
+
+            /// If there's an error
+            if(!imageName){
+
+                console.log("There was an error")
+                res.redirect("/");
+                res.end();
+
+            } else {
+
+                var newPath = __dirname + "/avatars/" + imageName;
+
+                /// write file to uploads/fullsize folder
+                fs.writeFile(newPath, data, function (err) {
+
+                    /// let's see it
+                    res.redirect("/avatars/" + imageName);
+
+                });
+            }
+        });
+    });
+
+    /// Show files
+    app.get('/avatars/:file', function (req, res){
+        file = req.params.file;
+        var img = fs.readFileSync(__dirname + "/avatars/" + file);
+        res.writeHead(200, {'Content-Type': 'image/jpg' });
+        res.end(img, 'binary');
+
     });
 
 // password reset //
