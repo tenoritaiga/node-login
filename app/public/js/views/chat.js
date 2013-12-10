@@ -127,10 +127,43 @@ $(document).ready(function(){
 //    initTabs();
 
     //When user wants to join friends chat
+    $('#joinFriendChatDialog').on('click', '#joinChatBtn', function(){
+        var selected = $('#joinFriendChat option:selected').text();
+        if(selected == ""){
+            alert("Pick one idiot!");
+        } else {
+            addChat(selected);
+            $("#joinFriendChatDialog").dialog("close");
+
+        }
+        //alert($('#joinFriendChat option:selected').text());
+    });
 
     $('ul').on('click', '.friend', function(){
-        var text = $(this).text();
-        addChat(text);
+        $('#joinFriendChat')
+            .find('option').remove();
+        var username = $(this).text();
+        $.ajax({
+            type: "POST",
+            url: '/chatloader',
+            data: {function: "getFriendsChatrooms", username:username}
+
+        }).done(function(data, status){
+                if(data.length <= 1){
+                    alert("Your friend is not in any chats!");
+                    return;
+                }
+                $("#joinFriendChatDialog").dialog("open");
+                data.forEach(function (element, index, array) {
+
+                    if(element != 'Default')
+                        $('#joinFriendChat').append($("<option></option>").text(element));
+                });
+            }).fail(function (data, status){
+                alert(data.toString() + " " + status);
+            });
+        //var text = $(this).text();
+        //addChat(text);
     });
     $("#addFriend").click(
         function(){
@@ -151,6 +184,7 @@ $(document).ready(function(){
     );
     $("#newChatroomDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
     $("#addFriendDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
+    $("#joinFriendChatDialog").dialog( {autoOpen: false, modal: true, draggable: false} );
 
 
 
@@ -428,7 +462,7 @@ window.onload = function() {
     }
 
     function getChatroom() {
-        alert("getChatroom is returning " + currentchat);
+        //alert("getChatroom is returning " + currentchat);
         return currentchat;
     }
 

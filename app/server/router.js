@@ -171,8 +171,19 @@ module.exports = function (app) {
                     }
                 });
             }
-            if(req.param("function") == "getUserChatrooms"){
-                console.log("username: " + req.cookies.user);
+            if(req.param("function") == "getFriendsChatrooms"){
+                var username = req.param('username');
+                DB.getUserChatrooms(username, function (e, o) {
+                     if (e) {
+                        console.log("Router: getUserChatrooms returned error: " + e);
+                        res.send(e);
+                    } else {
+                        res.send(o);
+                    }
+                });
+            }
+
+                if(req.param("function") == "getUserChatrooms"){
                 DB.getUserChatrooms(req.cookies.user, function (e, o) {
                     if (e) {
                         console.log("Router: getUserChatrooms returned error: " + e);

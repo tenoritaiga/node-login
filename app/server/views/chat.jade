@@ -43,6 +43,9 @@ html
             label(for='addFriendUsername') Username
             input#addFriendUsername(type='text', name='addFriendUsername', maxlength='15')
             button#addFriendSubmit Add
+        #joinFriendChatDialog(title="Join Friend's Chat")
+            select#joinFriendChat(name='joinFriendChat', size='4')
+            button#joinChatBtn(type='button') Join
 
 block scripts
     script(src='/vendor/jquery.min.js')
