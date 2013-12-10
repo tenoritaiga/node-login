@@ -339,10 +339,13 @@ exports.addFriendToUser = function(username, friendName, callback)
                             accounts.save(user, {safe: true},function(e, blah){});
                             callback("Friend added", friend);
                         } else {
-                            if(friend.name == user.name)
+                            if(!friend){
+                                callback("That user does not exist!", friend)
+                            } else {
                                 callback("You can't add yourself silly", friend);
-                            else// friend does not exist
-                                callback("That user does not exist!", friend);
+
+                            }
+
                         }
                     });
 
