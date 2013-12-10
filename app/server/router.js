@@ -150,6 +150,17 @@ module.exports = function (app) {
                     }
                 });
             }
+
+            if(req.param("function") == "getUsersFriends"){
+                DB.getUsersFriends(req.cookies.user, function (e, o) {
+                    if (o) {
+                        res.send(o);
+                    } else {
+                        res.send("Error");
+                    }
+                });
+            }
+
             if(req.param("function") == "addFriendToUser"){
                 var friendName = req.param("friendName");
                 DB.addFriendToUser(req.cookies.user, friendName, function (e, o) {

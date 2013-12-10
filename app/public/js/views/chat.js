@@ -25,6 +25,21 @@ function switchRoom(room){
     socket.emit('switchRoom', room);
 }
 
+
+$.ajax({
+    type: "POST",
+    url: '/chatloader',
+    data: {function: "getUsersFriends"}
+
+}).done(function(data, status){
+        data.forEach(function (element, index, array) {
+            displayFriend(element); // TODO
+        });
+    }).fail(function (data, status){
+        alert(data.toString() + " " + status);
+    });
+
+
 $(document).ready(function(){
     var addChat = function(text){
         $.ajax({

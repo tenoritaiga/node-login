@@ -287,7 +287,7 @@ exports.addChatnameToChatrooms = function(chatname, callback){
     });
 }
 
-isChatroomPresent = function(chatname){
+var isChatroomPresent = function(chatname){
     accounts.findOne({chatname:chatname}, function(e, chatroom){
         if(chatroom){
             return true;
@@ -296,6 +296,17 @@ isChatroomPresent = function(chatname){
         }
     });
 }
+
+var getUsersFriends = function(username, callback){
+    accounts.findOne({user:username}, function(e, user){
+        if(user){
+            callback(null, user.friends);
+        } else{
+            callback(null, "User does not exist"); // should technically never get here
+        }
+    });
+}
+exports.getUsersFriends = getUsersFriends;
 
 exports.addChatToUser = function(username, chatname, callback)
 {
