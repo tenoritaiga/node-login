@@ -22,7 +22,8 @@
 		"moment" : "1.7.2",
 		"emailjs": "0.3.3",
         "socket.io": "latest",
-        "scrypt": "latest"
+        "scrypt": "latest",
+	"string": "latest"
 	},
 	"engines": {
 		"node": "0.8.14",
