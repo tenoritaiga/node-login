@@ -6,7 +6,7 @@ var S           = require('string');
 
 var dbPort 		= 27017;
 var dbHost 		= 'localhost';
-var dbName 		= 'node-login';
+var dbName 		= 'pgpchat';
 
 /* establish the database connection */
 
