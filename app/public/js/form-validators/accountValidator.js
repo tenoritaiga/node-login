@@ -10,20 +10,35 @@ function AccountValidator(){
 	
 	this.alert = $('.modal-form-errors');
 	this.alert.modal({ show : false, keyboard : true, backdrop : true});
-	
-	this.validateName = function(s)
+    var usernameRegex = /^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9']+)*$/;
+    var passwordRegex = /^[a-zA-Z]\w{3,14}$/;
+    this.validateName = function(s)
 	{
-		return s.length >= 3;
+        if(usernameRegex.test(s) && s.length > 4 && s.length < 14){
+            alert("True username");
+            console.log("True username");
+            return true;
+        }
+        alert("False username");
+        console.log("False username");
+        return false;
+		//return s.length >= 3;
 	}
 	
 	this.validatePassword = function(s)
 	{
 	// if user is logged in and hasn't changed their password, return ok
-		if ($('#userId').val() && s===''){
-			return true;
-		}	else{
-			return s.length >= 6;
-		}
+        if(passwordRegex.test($('#pass-tf').val()))
+        {
+            alert("True password");
+            console.log("True password");
+            return true;
+        }
+
+        alert("False password");
+        console.log("False password");
+		return passwordRegex.test($('#pass-tf').val());
+
 	}
 
     this.validatePasswordMatch = function(pass1, pass2)

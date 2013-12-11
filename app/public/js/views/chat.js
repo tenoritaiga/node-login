@@ -1,5 +1,5 @@
 var messages = [];
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('localhost:8080');
 var field = document.getElementById("inputMessage");
 var sendButton = document.getElementById("inputSend");
 var content = document.getElementById("chatbox");
@@ -283,8 +283,9 @@ $(document).ready(function(){
     });
     var createNewRoom = function()
     {
-        var newName = $($("#newChatroomName").val()).text();
-        if(newName == 'New'){
+        var regex = /^[a-zA-Z]\w{3,15}$/;
+        var newName = $("#newChatroomName").val();
+        if(newName == 'New' || !regex.test(newName)){
             alert('Illegal channel name');
             return;
         }
