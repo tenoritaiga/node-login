@@ -67,12 +67,12 @@ $(document).ready(function(){
             data: {function: "addFriendToUser", friendName:friendName}
 
         }).done(function(data, status){
-                 if(data == 'Friend added'){
-                     //display friend here
-                     displayFriend(friendName);
-                     $("#addFriendDialog").dialog("close");
-                     alert(data.toString());
-                 } else {
+                if(data == 'Friend added'){
+                    //display friend here
+                    displayFriend(friendName);
+                    $("#addFriendDialog").dialog("close");
+                    alert(data.toString());
+                } else {
                     alert(data.toString());
                 }
             }).fail(function (data, status){
@@ -177,7 +177,7 @@ $(document).ready(function(){
         function(){
             $("#addFriendUsername").val("");
             $("#addFriendDialog").dialog("open");
-    });
+        });
 
 
     $("#newTab").click
@@ -283,7 +283,7 @@ $(document).ready(function(){
     });
     var createNewRoom = function()
     {
-        var newName = $("#newChatroomName").val();
+        var newName = $($("#newChatroomName").val()).text();
         if(newName == 'New'){
             alert('Illegal channel name');
             return;
@@ -401,7 +401,7 @@ window.onload = function() {
 
 
     socket.on('message', function (data) {
-	console.log("CLIENT: socket.on message is receiving " + data.message + " in " + data.room);
+        console.log("CLIENT: socket.on message is receiving " + data.message + " in " + data.room);
         if(data.message) {
 
             console.log("PRINTER GOT " + data.message);
@@ -513,10 +513,12 @@ window.onload = function() {
 //        if(name.value == "") {
 //            alert("Please type your name!");
 //        } else {
-            var text = field.value;
-            //var encrypted = openpgp.write_encrypted_message(pubkey,text);
-            socket.emit('send', { message: text, username: name, room: getChatroom(), time: timestamp});
-            field.value = "";
+        var text = field.value;
+        var regex = /(<([^>]+)>)/ig;
+        text = text.replace(regex, "");
+        //var encrypted = openpgp.write_encrypted_message(pubkey,text);
+        socket.emit('send', { message: text, username: name, room: getChatroom(), time: timestamp});
+        field.value = "";
         //}
     };
 
