@@ -15,12 +15,12 @@ function AccountValidator(){
     this.validateName = function(s)
 	{
         if(usernameRegex.test(s) && s.length > 4 && s.length < 14){
-            alert("True username");
-            console.log("True username");
+            //alert("True username");
+            //console.log("True username");
             return true;
         }
-        alert("False username");
-        console.log("False username");
+        //alert("False username");
+        //console.log("False username");
         return false;
 		//return s.length >= 3;
 	}
@@ -30,13 +30,13 @@ function AccountValidator(){
 	// if user is logged in and hasn't changed their password, return ok
         if(passwordRegex.test($('#pass-tf').val()))
         {
-            alert("True password");
-            console.log("True password");
+            //alert("True password");
+            //console.log("True password");
             return true;
         }
 
-        alert("False password");
-        console.log("False password");
+        //alert("False password");
+        //console.log("False password");
 		return passwordRegex.test($('#pass-tf').val());
 
 	}
