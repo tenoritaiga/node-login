@@ -2,6 +2,7 @@ var scrypt      = require('scrypt');
 var MongoDB 	= require('mongodb').Db;
 var Server 		= require('mongodb').Server;
 var moment 		= require('moment');
+var S           = require('string');
 
 var dbPort 		= 27017;
 var dbHost 		= 'localhost';
@@ -97,9 +98,9 @@ exports.addNewAccount = function(newData, callback)
 exports.updateAccount = function(newData, callback)
 {
     accounts.findOne({user:newData.user}, function(e, o){
-        o.name 		= newData.name;
-        o.email 	= newData.email;
-        o.country 	= newData.country;
+        o.name 		= S(newData.name).stripTags().s;
+        o.email 	= S(newData.email).stripTags().s;
+        o.country 	= S(newData.country).stripTags().s;
         if (newData.pass == ''){
             accounts.save(o, {safe: true}, function(err) {
                 if (err) callback(err);
@@ -227,7 +228,7 @@ writeChatroom = function (data, callback) {
     if (data && !isChatroomPresent(data)) {
         console.log("inserting chatroom")
         chatrooms.insert({
-            "chatname" : data,
+            "chatname" : S(data).stripTags().s,
             "chatters" : []
         }, function(e){
             if (e){
@@ -277,7 +278,7 @@ exports.addChatnameToChatrooms = function(chatname, callback){
             callback("Chatroom already exists", chatroom);
         } else {
             chatroom.insert({
-                "chatname" : chatname
+                "chatname" : S(chatname).stripTags().s
             }, function(e){
                 if (e){
                     console.log("Something bad happened while trying to write to db.");
@@ -314,7 +315,7 @@ exports.addChatToUser = function(username, chatname, callback)
         console.log("trying to find: " + username);
             accounts.findOne({user:username, chatrooms:chatname}, function(e, o){
                 if(!o && !isChatroomPresent(chatname)){
-                    user.chatrooms.push(chatname);
+                    user.chatrooms.push(S(chatname).stripTags().s);
                     accounts.save(user, {safe: true},function(e, o){});
                     writeChatroom(chatname, function(e){});
                     console.log("About to add chatter");
@@ -346,7 +347,7 @@ exports.addFriendToUser = function(username, friendName, callback)
                 if(!o){ // check to make sure friend not already added
                     accounts.findOne({user:friendName}, function(e, friend){
                         if(friend && friend.name != user.name){
-                            user.friends.push(friendName);
+                            user.friends.push(S(friendName).stripTags().s);
                             accounts.save(user, {safe: true},function(e, blah){});
                             callback("Friend added", friend);
                         } else {
@@ -398,7 +399,7 @@ var addChatter = function(chatname, username, callback){
         if (chatroom){
             console.log(chatroom.chatname);
             console.log(chatroom.chatters);
-            chatroom.chatters.push(username);
+            chatroom.chatters.push(S(username).stripTags().s);
             chatrooms.save(chatroom, {safe: true},function(e, o){});
             callback("Added", chatroom);
             // add user
@@ -461,7 +462,7 @@ exports.writeMember = function (member, chatname, callback) {
         var room = db.collection(chatname);
 
         room.insert({
-            "member" : data
+            "member" : S(data).stripTags().s
         }, function(e){
             if (e){
                 console.log("Something bad happened while trying to write to db.");
@@ -484,9 +485,9 @@ exports.writeMessage = function (data) {
         console.log("OK, WRITING TO DB");
 
         messages.insert({
-            "username" : data.username,
-            "message" : data.message,
-            "time" : data.time
+            "username" : S(data.username).stripTags().s,
+            "message" : S(data.message).stripTags().s,
+            "time" : S(data.time).stripTags().s
         }, function(e){
             if (e){
                 console.log("Something bad happened while trying to write to db.");
